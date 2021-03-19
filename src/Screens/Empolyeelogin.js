@@ -1,20 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image,KeyboardAvoidingView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 export default function EmpolyeeLogin() {
     const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+   
       
       <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 255,0.3)', 'transparent']}
-        style={styles.background}
-      />
+        colors={['rgba(122, 51, 255,0.2)', 'transparent']}
+        style={styles.container}
+      >
+        <View style={{flexDirection:'row' ,alignItems:'center'}}>
+         <View style={{flexDirection:'column',marginRight:10}}>
         <TextInput
         placeholder="User Id" 
         placeholderTextColor='#B3AFB4'
@@ -28,19 +31,21 @@ export default function EmpolyeeLogin() {
        style={styles.txt}
        
       />
+      </View>
        <TouchableOpacity  onPress={()=>{navigation.navigate("Home Page")}}>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Login</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
     
-    </View>
+     
+   
+           
+           <AntDesign name="login" size={45}  color='#7A33FF' />
+       
+     
+      </TouchableOpacity>
+      </View>
+      <Image style={{width:"100%",height:170}} source={require('../../assets/city.png')}/>
+    
+    </LinearGradient>
+    
   );
 }
 
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: 'black',
   },
   background: {
@@ -84,8 +89,7 @@ const styles = StyleSheet.create({
      color:"#fff",
         width:200,
        padding:5,
-       marginBottom:20,
-    
+       marginVertical:4,
        borderWidth:1,
        borderRadius:13,
        borderColor:'#7A33FF',

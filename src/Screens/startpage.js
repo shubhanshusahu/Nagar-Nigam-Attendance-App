@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 export default function StartPage() {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
       <LinearGradient
         // Background Linear Gradient
-        colors={['rgba(122, 51, 255,0.3)', 'transparent']}
-        style={styles.background}
-      />
+        // colors={['rgba(122, 51, 255,0.3)', 'transparent']}
+        colors={['orange', '#fff', 'green']}
+        style={styles.container}
+      >
+        <Image style={{width:"100%",height:170}} source={require('../../assets/start.png')}/>
+
+        <View style={{justifyContent:'flex-end',marginTop:60}}>
+
        <TouchableOpacity  onPress={()=>{navigation.navigate("Empolyee Login")}}>
       <LinearGradient
      
@@ -34,7 +39,9 @@ export default function StartPage() {
    
    </LinearGradient>
    </TouchableOpacity>
-    </View>
+   </View>
+   </LinearGradient>
+    // </View>
   );
 }
 
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black',
+  
   },
   background: {
     position: 'absolute',

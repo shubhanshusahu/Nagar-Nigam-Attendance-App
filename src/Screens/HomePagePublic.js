@@ -3,17 +3,18 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 
-export default function EmpolyeeHome() {
+export default function PublicHome() {
 
 
   return (
     <View style={styles.container}>
-    <LinearGradient
+         <LinearGradient
         // Background Linear Gradient
       
         colors={['rgba(122, 51, 255,0.3)', 'transparent']}
         style={styles.background}
       />
+   
    <TouchableOpacity>
       <LinearGradient
      
@@ -21,7 +22,7 @@ export default function EmpolyeeHome() {
         colors={['#7A33FF', '#000', '#192f6a']}
         style={styles.button}>
            
-        <Text style={styles.text}>My Employee</Text>
+        <Text style={styles.text}>Complain</Text>
        
       </LinearGradient>
       </TouchableOpacity>
@@ -29,10 +30,10 @@ export default function EmpolyeeHome() {
       <LinearGradient
      
         // Button Linear Gradient
-        colors={['#5B44FF', '#000', '#192f6a']}
+        colors={['#5B3fFF', '#000', '#192f6a']}
         style={styles.button}>
            
-        <Text style={styles.text}>Checking Attendance </Text>
+        <Text style={styles.text}>Feedback</Text>
        
       </LinearGradient>
       </TouchableOpacity>
@@ -43,34 +44,12 @@ export default function EmpolyeeHome() {
         colors={['#7A33FF', '#000', '#192f6a']}
         style={styles.button}>
            
-        <Text style={styles.text}>Mark Attendance</Text>
+        <Text style={styles.text}>Complain Status Check</Text>
        
       </LinearGradient>
       </TouchableOpacity>
    
-       <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#5B44FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Viewing Complains</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
-      <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Viewing Feedback</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
-    
+      
     </View>
   );
 }

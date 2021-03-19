@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
 export default function PublicLogin() {
 
-
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    
       
       <LinearGradient
         // Background Linear Gradient
       
         colors={['rgba(122, 51, 255,0.3)', 'transparent']}
-        style={styles.background}
-      />
+        style={styles.container}
+      >
         <TextInput
         placeholder="Mobile Number" 
         placeholderTextColor='#B3AFB4'
@@ -28,7 +29,7 @@ export default function PublicLogin() {
        style={styles.txt}
        
       />
-       <TouchableOpacity>
+       <TouchableOpacity onPress={()=>{navigation.navigate("Public Home Page")}}>
       <LinearGradient
      
         // Button Linear Gradient
@@ -38,9 +39,10 @@ export default function PublicLogin() {
         <Text style={styles.text}>Login</Text>
        
       </LinearGradient>
+      
       </TouchableOpacity>
-    
-    </View>
+      <Image style={{width:"100%",height:170}} source={require('../../assets/city2.png')}/>
+   </LinearGradient>
   );
 }
 
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: 'black',
   },
   background: {
