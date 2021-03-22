@@ -8,6 +8,8 @@ import EmpolyeeLogin from '../Screens/Empolyeelogin'
 import PublicLogin  from '../Screens/PublicLogin'
 import EmpolyeeHome  from '../Screens/HomePageEmpolyee'
 import PublicHome  from '../Screens/HomePagePublic'
+import MyEmpolyee  from '../Screens/MyEmployee'
+
 const AppStack = createStackNavigator();
 export default function Navigator(){
 
@@ -17,9 +19,10 @@ export default function Navigator(){
     <AppStack.Screen name="Nagar Nigam"  component={StartPage}  />
     <AppStack.Screen name="Empolyee Login" component={EmpolyeeLogin} />    
   <AppStack.Screen name="Public Login" component={PublicLogin} />  
-    <AppStack.Screen name="mark attendance" component={App} />
+    <AppStack.Screen name="Mark Attendance" component={App} />
     <AppStack.Screen name="Home Page" component={EmpolyeeHome} />
     <AppStack.Screen name="Public Home Page" component={PublicHome} />
+    <AppStack.Screen name="My Employee" component={MyEmpolyee} />
     {/* <AppStack.Screen name="Product" component={Product} /> */}
     </AppStack.Navigator>
     </NavigationContainer>

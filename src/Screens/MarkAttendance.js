@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity,StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 
 let camera=Camera;
 export default function App() {
@@ -11,7 +12,10 @@ export default function App() {
   const [capturedImage, setCapturedImage] = useState(false)
   const [flashMode, setFlashMode] = useState('off')
 
-
+  const [location, setLocation] = useState({coords:{latitude: 53.1651488,
+    longitude: 34.9455526,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421}});
   const __handleFlashMode = () => {
     if (flashMode === 'on') {
       setFlashMode('off')
@@ -23,13 +27,26 @@ export default function App() {
 
   }
 
-  snap = async () => {
+ const snap = async () => {
     if (camera) {
       let photo = await camera.takePictureAsync();
       alert("captured"+JSON.stringify(photo))
+      alert(JSON.stringify(location))
     }
   };
   useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+     setLocation(await Location.getCurrentPositionAsync({}));
+
+ 
+    
+    })();
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
