@@ -11,11 +11,11 @@ export default function App() {
   const [photo1, setphoto1]=useState(null);
   const [capturedImage, setCapturedImage] = useState(false)
   const [flashMode, setFlashMode] = useState('off')
-
-  const [location, setLocation] = useState({coords:{latitude: 53.1651488,
-    longitude: 34.9455526,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421}});
+  const [location, setLocation] = React.useState(null)
+  // const [location, setLocation] = useState({coords:{latitude: 53.1651488,
+  //   longitude: 34.9455526,
+  //   latitudeDelta: 0.0922,
+  //   longitudeDelta: 0.0421}});
   const __handleFlashMode = () => {
     if (flashMode === 'on') {
       setFlashMode('off')
@@ -38,12 +38,15 @@ export default function App() {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
+ 
         setErrorMsg('Permission to access location was denied');
+        
         return;
       }
-
+if(Location.hasServicesEnabledAsync({}))
      setLocation(await Location.getCurrentPositionAsync({}));
-
+else
+     { setLocation("null");}
  
     
     })();
@@ -52,7 +55,7 @@ export default function App() {
       setHasPermission(status === 'granted');
     })();
   }, []);
-
+ 
   if (hasPermission === null) {
     return <View />;
   }

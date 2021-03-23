@@ -2,6 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import AwesomeButton from "react-native-really-awesome-button";
 
 export default function StartPage() {
   const navigation = useNavigation();
@@ -13,32 +15,24 @@ export default function StartPage() {
         colors={['orange', '#fff', 'green']}
         style={styles.container}
       >
-        <Image style={{width:"100%",height:170}} source={require('../../assets/start.png')}/>
+        <Image style={{width:"80%",height:140}} source={require('../../assets/start.png')}/>
 
         <View style={{justifyContent:'flex-end',marginTop:60}}>
 
-       <TouchableOpacity  onPress={()=>{navigation.navigate("Empolyee Login")}}>
-      <LinearGradient
+      
      
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Employee Login</Text>
+       <AwesomeButtonRick  style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2}  backgroundColor="#fff" type="primary"  onPress={()=>{navigation.navigate("Empolyee Login")}} >
+      Empolyee Login
+    </AwesomeButtonRick>
        
-      </LinearGradient>
-      </TouchableOpacity >
-      <TouchableOpacity onPress={()=>{navigation.navigate("Public Login")}}>
-      <LinearGradient
-     
-     // Button Linear Gradient
-     colors={['#7A33FF', '#000', '#192f6a']}
-     style={styles.button}>
-       
-     <Text style={styles.text}>Public Login</Text>
    
-   </LinearGradient>
-   </TouchableOpacity>
+  
+   
+      <AwesomeButtonRick style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary"  onPress={()=>{navigation.navigate("Public Login")}} >
+      Public Login
+    </AwesomeButtonRick>
+
+   
    </View>
    </LinearGradient>
     // </View>
@@ -60,11 +54,10 @@ const styles = StyleSheet.create({
     height: 300,
   },
   button: {
-    padding: 15,
-    alignItems: 'center',
-    borderRadius: 5,
+  
+   width:150,
     marginVertical:5,
-    width:200
+   
   },
   text: {
     backgroundColor: 'transparent',

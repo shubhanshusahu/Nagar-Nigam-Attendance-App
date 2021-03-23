@@ -2,52 +2,30 @@ import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-
+import { useNavigation } from '@react-navigation/native';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function PublicHome() {
 
-
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      
          <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 255,0.3)', 'transparent']}
+        colors={['rgba(122, 51, 265,0.6)', 'transparent']}
         style={styles.background}
       />
-   
-   <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Complain</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
-   <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#5B3fFF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Feedback</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
-   <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Complain Status Check</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
+  
+  <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{navigation.navigate("Complain")}} >
+     Complain 
+    </AwesomeButtonRick>
+    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+     Feedback
+    </AwesomeButtonRick>
+    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+     Complain Status Check
+    </AwesomeButtonRick>
    
       
     </View>
