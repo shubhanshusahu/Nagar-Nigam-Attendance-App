@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
+import { StyleSheet, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function EmpolyeeHome() {
 
   const navigation = useNavigation();
@@ -12,67 +13,43 @@ export default function EmpolyeeHome() {
     <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 255,0.3)', 'transparent']}
+        colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.background}
       />
-   <TouchableOpacity onPress={()=>{navigation.navigate("My Employee")}}>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>My Employee</Text>
+
+  
+      
+<AwesomeButtonRick style={styles.button}   textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF"  type="secondary"  onPress={()=>{navigation.navigate("My Employee")}} >
+    MY Employee
+    </AwesomeButtonRick>
        
-      </LinearGradient>
-      </TouchableOpacity>
-   <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#5B44FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Checking Attendance </Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
-   <TouchableOpacity onPress={()=>{navigation.navigate("Mark Attendance")}}>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Mark Attendance</Text>
-       
-      </LinearGradient>
-      </TouchableOpacity>
+
    
-       <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#5B44FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Viewing Complains</Text>
+      
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>{navigation.navigate("My-Attendance")}} >
+   My Attendance
+    </AwesomeButtonRick>
        
-      </LinearGradient>
-      </TouchableOpacity>
-      <TouchableOpacity>
-      <LinearGradient
-     
-        // Button Linear Gradient
-        colors={['#7A33FF', '#000', '#192f6a']}
-        style={styles.button}>
-           
-        <Text style={styles.text}>Viewing Feedback</Text>
+
+  
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{navigation.navigate("Mark Attendance")}} >
+   Mark Attendance
+    </AwesomeButtonRick>
+
+   
        
-      </LinearGradient>
-      </TouchableOpacity>
+      
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+   Viewing Complains
+    </AwesomeButtonRick>
+
+      
+      <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+      Viewing Feedback
+    </AwesomeButtonRick>
+</View>
     
-    </View>
+   
   );
 }
 
@@ -91,11 +68,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   button: {
-    padding: 15,
+   
     alignItems: 'center',
-    borderRadius: 5,
+   
     marginVertical:5,
-    width:200
+    
   },
   text: {
     backgroundColor: 'transparent',

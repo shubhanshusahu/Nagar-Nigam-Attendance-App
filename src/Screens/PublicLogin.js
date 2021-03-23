@@ -20,33 +20,36 @@ export default function PublicLogin() {
          <View style={{flexDirection:'column',marginRight:10}}>
         <TextInput
         placeholder="Mobile Number" 
-        placeholderTextColor='#B3AFB4'
-        textAlign='center'
+        placeholderTextColor='#3AB432'
+        textAlign='left'
         style={styles.txt}
        
       />
        <TextInput
-        placeholder="Password" textAlign='center'
-        placeholderTextColor='#B3AFB4'
+        placeholder="Password" textAlign='left'
+        
+        placeholderTextColor='#3AB432'
        style={styles.txt}
        
       />
-      <TouchableOpacity >
-         <Text style={styles.forg}>Dont have an Account ?, Create One..</Text> 
-         </TouchableOpacity>
+    
       </View>
       <TouchableOpacity  onPress={()=>{navigation.navigate("Public Home Page")}}>
     
      
    
            
-    <AntDesign name="login" size={45}  color='#7A33FF' />
+    <AntDesign name="login" size={45}  color='#39E42D' />
 
 
 </TouchableOpacity>
 
       </View>
+      <TouchableOpacity onPress={()=>{navigation.navigate("Sign-Up")}} >
+         <Text style={styles.forg}>Dont have an Account ?, Create One..</Text> 
+         </TouchableOpacity>
       <Image style={{width:"100%",height:170}} source={require('../../assets/city2.png')}/>
+      
    </LinearGradient>
   );
 }
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
        marginVertical:4,
        borderWidth:1,
        borderRadius:13,
-       borderColor:'#7A33FF',
+       borderColor:'#39E42D',
+       paddingLeft:5,
      
   },
   forg:{
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
     height: 30,
      
       fontSize:15,
-     color:"#5B44FF",
+     color:"#39E42D",
        margin:0,
       textAlign:'center',
       textDecorationLine:'underline',
