@@ -19,7 +19,7 @@ dataSource=[{
 }]
     function Item({empName,empid,age}){
         return(<View style={styles.row2}>
-          <TouchableOpacity style={styles.Listitems}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'empName':empName,'empid':empid,'age':age})}} style={styles.Listitems}>
           
             <Text style={styles.txt}> {empid} </Text>
             <Text style={styles.txt1}> {empName} </Text>

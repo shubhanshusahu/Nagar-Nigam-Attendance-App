@@ -1,13 +1,47 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
+import { StyleSheet,ScrollView, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { useState,useEffect } from 'react';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import ImgToBase64 from 'react-native-image-base64';
 export default function PublicComplain() {
  
-
   const navigation = useNavigation();
+
+  const [image, setImage] = useState(null);
+  
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      // allowsEditing: true,
+      // aspect: [8,16],
+      
+      quality: 1,
+      base64 :true
+    });
+
+    //IMAGe URI
+     
+
+    if (!result.cancelled) {
+
+      setImage(result.uri)
+        }
+  }
   return (
     
       
@@ -17,28 +51,41 @@ export default function PublicComplain() {
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
-           <View style={{flexDirection:'row' ,alignItems:'center'}}>
-         <View style={{flexDirection:'column',marginRight:10}}>
-         <TextInput
-        placeholder="TYPE HERE ........." 
-        placeholderTextColor='#3AB432'
-        textAlign='center'
-        
-        style={styles.txt}
-       
-      />
-       </View>
-      <TouchableOpacity >
-    
-     
-   
+           <ScrollView style={{flexDirection:'column'}}>  
+            <View style={{flexDirection:'column',marginRight:10,alignItems:'center',justifyContent:'center'}}>
            
-    <AntDesign name="Submit" size={45}  color='#39E42D' />
+      
+        
+         <TextInput
+            style={styles.postInput}
+          
+            multiline={true}
+            numberOfLines={3}
+            placeholder="TYPE HERE ......"
+            placeholderTextColor="#3DFDF4"
+            underlineColorAndroid='transparent'
+            require={true}
+/>
+      
+      <View style={{flexDirection:'row'}}>
 
 
-</TouchableOpacity>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Upload image
+    </AwesomeButtonRick>
+      {image && <Image source={{ uri: image }} resizeMode='contain' style={{ width:159,height:159}} />}
+    </View>
 
-      </View>
+
+      <AwesomeButtonRick style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Submit
+    </AwesomeButtonRick>
+   </View>
+           
+    
+</View>
+      </ScrollView>
   
       
    </LinearGradient>
@@ -63,8 +110,8 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     borderRadius: 5,
-    marginVertical:5,
-    width:200
+    margin:5,
+    
   },
   text: {
     backgroundColor: 'transparent',
@@ -86,11 +133,12 @@ const styles = StyleSheet.create({
         width:250,
         height:250,
        padding:2,
-       marginVertical:4,
+     
        borderWidth:1,
        borderRadius:13,
        borderColor:'#39E42D',
        paddingLeft:5,
+       alignItems:'flex-start',
        
      
   },
@@ -98,9 +146,22 @@ const styles = StyleSheet.create({
       
     height: 30,
     fontSize:15,
-    color:"#39E42D",
+    
     margin:0,
     textAlign:'center',
     textDecorationLine:'underline',
 },
+postInput: {
+  color:"#fff",
+  fontSize: 18,
+  width:300,
+  borderColor:'#42435b',
+  borderWidth:1,
+  margin:10,
+  borderWidth:1,
+  borderRadius:35,
+  borderColor:'#3DFDF4',
+  padding:15,
+  
+  }
 });

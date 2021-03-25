@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-export default function PublicSignUp() {
-  const [name, setName] = useState("")
-  const [dob, setDob] = useState("")
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+export default function UpdateEmp() {
+    const route=useRoute();
+  const [empid, setempid] = useState(route.params.empid)
+  const [name, setName] = useState(route.params.empName)
+  const [dob, setDob] = useState(route.params.age)
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
@@ -21,19 +24,21 @@ export default function PublicSignUp() {
   }
   const validate=()=>{
     var r=mno;
-    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    //var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
     var letters=/^[A-Z a-z]+$/;
+    if ((!empid=="") && (empid.length>2) && !isNaN(empid))
+    {
     if ((name.match(letters)) && (!name=="") && (name.length>2))
     {
-      if ((dob.match(dateformat)) && (!dob=="")){
+      if ((!dob=="")){    //(dob.match(dateformat)) &&
         
      
       if ((mno.length==10) && (!mno=="") && !isNaN(mno)){
         if((!pass=="") &&(pass.length>3)){
           if( (!repass=="")) {
           if((pass==repass) && (!repass=="")) {
-            alert(name+"Account created sucessfully")
-            navigation.navigate("Public Login")
+            alert(name + " Account created sucessfully")
+           navigation.navigate("My Employee")
             
        }
        else{
@@ -61,6 +66,11 @@ export default function PublicSignUp() {
   alert("Name is not in correct format")
   setName("");
 }
+}
+else{
+      alert("Enter valid Employee ID") 
+    }
+
     
 }
 
@@ -74,13 +84,26 @@ export default function PublicSignUp() {
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
+       <AwesomeButtonRick  style={styles.button} textColor="#fff" width={300} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
+    onPress={()=>{navigation.navigate("Checking Attendance")}} >
+      <Text style={{fontSize:15,color:'#FFF'}}>Check {route.params.empName}'s Attendance</Text>
+    </AwesomeButtonRick>
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
+         <TextInput
+        placeholder="Employee Id" 
+        placeholderTextColor='#3AB432'
+        textAlign='left'
+        value={empid.toString()}
+        onChangeText={text => setempid(text)}
+        style={styles.txt}
+       
+      />
          <TextInput
         placeholder="Name" 
         placeholderTextColor='#3AB432'
         textAlign='left'
-        value={name}  
+        value={name}
         onChangeText={text => setName(text)}
         style={styles.txt}
        
@@ -90,7 +113,7 @@ export default function PublicSignUp() {
         placeholderTextColor='#3AB432'
         textAlign='left'
         onChangeText={text => setDob(text)} 
-        value={dob}
+        value={dob.toString()}
         style={styles.txt}
        
       />
@@ -157,7 +180,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     marginVertical:5,
-    width:200
+    width:300
   },
   text: {
     backgroundColor: 'transparent',
