@@ -3,19 +3,51 @@ import { Text, View, TouchableOpacity,StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-
+import { useNavigation } from '@react-navigation/native';
+import * as FaceDetector from 'expo-face-detector';
+import renderIf from 'render-if';
 let camera=Camera;
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo1, setphoto1]=useState(null);
-  const [capturedImage, setCapturedImage] = useState(false)
+  
+  const [capturedImage, setCapturedImage] = useState(true)
   const [flashMode, setFlashMode] = useState('off')
   const [location, setLocation] = React.useState(null)
+ 
+  const navigation = useNavigation();
   // const [location, setLocation] = useState({coords:{latitude: 53.1651488,
   //   longitude: 34.9455526,
   //   latitudeDelta: 0.0922,
   //   longitudeDelta: 0.0421}});
+  const faceDetected = ({faces}) => {
+    setFaces(faces)
+    console.log(faces)
+    
+  }
+const getLocation =()=>{
+
+  (async () => {
+    let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+      
+        setErrorMsg('Permission to access location was denied');
+        
+        return;
+      }
+if( Location.hasServicesEnabledAsync({}))
+   {
+     setLocation(await Location.getCurrentPositionAsync({}));
+  
+  }
+else
+{
+setLocation(null)
+}
+  
+  })();
+}
   const __handleFlashMode = () => {
     if (flashMode === 'on') {
       setFlashMode('off')
@@ -29,16 +61,30 @@ export default function App() {
 
  const snap = async () => {
     if (camera) {
-      let photo = await camera.takePictureAsync();
-      alert("captured"+JSON.stringify(photo))
-      alert(JSON.stringify(location))
+      let photo = await camera.takePictureAsync({
+       quality: 0,
+        base64 :true
+       
+      });
+      
+      alert(JSON.stringify(location));
+      getLocation();
+     if(location)
+      navigation.navigate("Show Photo",{'photo':photo.uri});
+      else
+      {
+       
+
+        getLocation();
+        getLocation();
+   }
     }
   };
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
- 
+      
         setErrorMsg('Permission to access location was denied');
         
         return;
@@ -62,9 +108,10 @@ else
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  
   return (
     <View style={styles.container}>
-      <Camera style={{ flex: 1 ,flexDirection:'column'}}   flashMode={flashMode} type={type}  ref={(r) => {
+      {renderIf(capturedImage)( <Camera style={{ flex: 1 ,flexDirection:'column'}} autoFocus={true} flashMode={flashMode} type={type}  ref={(r) => {
     camera = r}} >
         <View
           style={{
@@ -123,6 +170,8 @@ else
         
         </View>
       </Camera>
+      )}
+     
     </View>
   );
 }
