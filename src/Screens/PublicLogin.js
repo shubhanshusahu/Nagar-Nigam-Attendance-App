@@ -34,7 +34,7 @@ export default function PublicLogin() {
       />
     
       </View>
-      <TouchableOpacity  onPress={()=>{navigation.navigate("Public Home Page")}}>
+      <TouchableOpacity   onPress={()=>{navigation.navigate("Public Home Page")}}  >
     
      
    

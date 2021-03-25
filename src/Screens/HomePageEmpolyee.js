@@ -2,12 +2,33 @@ import * as React from 'react';
 import { StyleSheet, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
+import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function EmpolyeeHome() {
 
   const navigation = useNavigation();
+  const getLocation =()=>{
 
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+   if (status !== 'granted') {
+        
+          setErrorMsg('Permission to access location was denied');
+          
+          return;
+        }
+  if(Location.hasServicesEnabledAsync({}))
+     {
+      navigation.navigate("Mark Attendance");    
+    }
+  else
+  {
+  getLocation();
+  }
+    
+    })();
+  }
   return (
     <View style={styles.container}>
     <LinearGradient
@@ -32,7 +53,7 @@ export default function EmpolyeeHome() {
        
 
   
-   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{navigation.navigate("Mark Attendance")}} >
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{getLocation()}} >
    Mark Attendance
     </AwesomeButtonRick>
 
