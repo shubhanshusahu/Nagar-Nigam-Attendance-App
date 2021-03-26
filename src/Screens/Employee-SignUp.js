@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
+
 export default function EmployeeSignUp() {
   const [empid, setempid] = useState("")
   const [name, setName] = useState("")
@@ -11,6 +12,7 @@ export default function EmployeeSignUp() {
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
+  const [selectedValue, setSelectedValue] = useState("java");
   const clear=()=> 
   {
     setName("");
@@ -136,7 +138,49 @@ else{
         textAlign='left'
         style={styles.txt}
        
-      />
+      /> 
+      <View style={{
+ alignSelf:"center",
+  borderWidth: 2,
+  borderColor:'#3AB432',
+  borderRadius: 20,
+  marginVertical:5,
+  flexDirection:'row',
+  alignItems:'center',
+  paddingHorizontal:5
+}}>
+      <Picker
+      selectedValue={selectedValue}
+     
+     style={{ color:'#3AB432', height: 35, width: 165 ,borderRadius:25}}
+  
+      onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+    > 
+      <Picker.Item label="Java" value="java" style={styles.txt}/>
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+     
+    </Picker>
+    <AntDesign name="caretdown" size={24} color= '#39E42D'/>
+    </View>
       </View>
       <TouchableOpacity  onPress={()=>{validate()}}>
     
@@ -160,7 +204,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#fff',
   },
   background: {
     position: 'absolute',
@@ -206,7 +250,8 @@ const styles = StyleSheet.create({
   forg:{
       
     height: 30,
-     
+     backfaceVisibility:'visible',
+     backgroundColor:"blue",
       fontSize:15,
      color:"#39E42D",
        margin:0,
