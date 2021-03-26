@@ -36,9 +36,9 @@ const getLocation =()=>{
         
         return;
       }
-if( Location.hasServicesEnabledAsync({}))
+if( Location.hasServicesEnabledAsync({accuracy: Location.Accuracy.High}))
    {
-     setLocation(await Location.getCurrentPositionAsync({}));
+     setLocation(await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High,enableHighAccuracy: true}));
   
   }
 else
@@ -91,7 +91,7 @@ setLocation(null)
         return;
       }
 if(Location.hasServicesEnabledAsync({}))
-     setLocation(await Location.getCurrentPositionAsync({}));
+     setLocation(await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.High}));
 else
      { setLocation("null");}
  
