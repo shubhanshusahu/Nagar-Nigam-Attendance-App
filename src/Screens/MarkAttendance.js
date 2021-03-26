@@ -3,15 +3,15 @@ import { Text, View, TouchableOpacity,StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { useNavigation } from '@react-navigation/native';
-import * as FaceDetector from 'expo-face-detector';
+import { useNavigation ,useRoute} from '@react-navigation/native';
+
 import renderIf from 'render-if';
 let camera=Camera;
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo1, setphoto1]=useState(null);
-  
+  const route= useRoute();
   const [capturedImage, setCapturedImage] = useState(true)
   const [flashMode, setFlashMode] = useState('off')
   const [location, setLocation] = React.useState(null)
@@ -68,8 +68,9 @@ setLocation(null)
       });
       
       alert(JSON.stringify(location));
+      alert("Marking attendance of "+route.params.empName)
       getLocation();
-     if(location)
+     if(location)   
       navigation.navigate("Show Photo",{'photo':photo.uri});
       else
       {

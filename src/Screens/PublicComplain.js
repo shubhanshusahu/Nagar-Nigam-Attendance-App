@@ -5,8 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useState,useEffect } from 'react';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
-import ImgToBase64 from 'react-native-image-base64';
+
 export default function PublicComplain() {
  
   const navigation = useNavigation();
@@ -22,9 +21,13 @@ export default function PublicComplain() {
         }
       }
     })();
+
+   
   }, []);
 
   const pickImage = async () => {
+   
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       // allowsEditing: true,
@@ -40,6 +43,21 @@ export default function PublicComplain() {
     if (!result.cancelled) {
 
       setImage(result.uri)
+        }
+  }
+  
+  const openCam = async () => {
+    let result1 = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      // allowsEditing: true,
+      // aspect: [8,16],
+      
+      quality: 1,
+      base64 :true
+    });
+    if (!result1.cancelled) {
+
+      setImage(result1.uri)
         }
   }
   return (
@@ -70,17 +88,20 @@ export default function PublicComplain() {
       <View style={{flexDirection:'row'}}>
 
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
-      Upload image
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <AwesomeButtonRick  onPress={()=>{openCam()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Click Picture
     </AwesomeButtonRick>
-      {image && <Image source={{ uri: image }} resizeMode='contain' style={{ width:159,height:159}} />}
-    </View>
-
-
-      <AwesomeButtonRick style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+    <AwesomeButtonRick style={styles.button,{width:310,marginBottom:10,marginLeft:7}} width={310} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
       Submit
     </AwesomeButtonRick>
+      {image && <Image source={{ uri: image }} resizeMode='contain' style={{ width:333,height:333,marginBottom:5}} />}
+    </View>
+    <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Upload image
+    </AwesomeButtonRick>
+
+     
    </View>
            
     
@@ -147,7 +168,7 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize:15,
     
-    margin:0,
+    marginBottom:5,
     textAlign:'center',
     textDecorationLine:'underline',
 },

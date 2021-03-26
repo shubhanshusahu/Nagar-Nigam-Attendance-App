@@ -84,10 +84,7 @@ else{
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
-       <AwesomeButtonRick  style={styles.button} textColor="#fff" width={300} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
-    onPress={()=>{navigation.navigate("Checking Attendance")}} >
-      <Text style={{fontSize:15,color:'#FFF'}}>Check {route.params.empName}'s Attendance</Text>
-    </AwesomeButtonRick>
+      
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
          <TextInput
@@ -155,7 +152,19 @@ else{
 </TouchableOpacity>
 
       </View>
-  
+      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
+    onPress={()=>{navigation.navigate("Checking Attendance")}} >
+      <Text style={{fontSize:15,color:'#FFF'}}>Check {route.params.empName}'s Attendance</Text>
+    </AwesomeButtonRick>
+      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
+    onPress={()=>{navigation.navigate("Mark Attendance",{'empid':route.params.empid,'empName':route.params.empName})}} >
+      <Text style={{fontSize:15,color:'#FFF'}}>Mark Attendance</Text>
+    </AwesomeButtonRick>
+      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
+    onPress={()=>{navigation.navigate("Work Locations")}} >
+      <Text style={{fontSize:15,color:'#FFF'}}>Add/Edit Work Locations</Text>
+    </AwesomeButtonRick>
+      
       
    </LinearGradient>
   );
@@ -176,11 +185,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   button: {
-    padding: 15,
-    alignItems: 'center',
-    borderRadius: 5,
-    marginVertical:5,
-    width:300
+    
+    height:40,
+   
+    marginVertical:2,
+    width:290
   },
   text: {
     backgroundColor: 'transparent',

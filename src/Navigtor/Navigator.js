@@ -16,13 +16,10 @@ import Locate from '../Screens/Locate'
 import EmployeeSignUp from '../Screens/Employee-SignUp'
 import CheckingAttendance from '../Screens/CheckingAttendance'
 import PublicComplain from '../Screens/PublicComplain'
-<<<<<<< HEAD
 import UpdateEmp from '../Screens/UpdateEmp'
 import WorkLocations from '../Screens/WorkLocations'
-=======
 import PhotoShow from '../Screens/Photoshow'
-import UpdateEmp from '../Screens/UpdateEmp'
->>>>>>> e646f81709f40253f78e593522583b160cfe9382
+
 const AppStack = createStackNavigator();
 export default function Navigator(){
 
@@ -43,14 +40,11 @@ export default function Navigator(){
     <AppStack.Screen name="Add-New-Employee" component={EmployeeSignUp} />
     <AppStack.Screen name="Complain" component={PublicComplain} />
     <AppStack.Screen name="Checking Attendance" component={CheckingAttendance} />
-<<<<<<< HEAD
     <AppStack.Screen name="Update Employee" component={UpdateEmp} />
     <AppStack.Screen name="Work Locations" component={WorkLocations} />
-
-=======
     <AppStack.Screen name="Show Photo" component={PhotoShow } />
     <AppStack.Screen name="Update Employee Detail" component={UpdateEmp} />
->>>>>>> e646f81709f40253f78e593522583b160cfe9382
+
 
     {/* <AppStack.Screen name="Product" component={Product} /> */}
     </AppStack.Navigator>

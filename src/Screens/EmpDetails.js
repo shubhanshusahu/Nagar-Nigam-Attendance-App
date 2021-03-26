@@ -19,11 +19,11 @@ dataSource=[{
 }]
     function Item({empName,empid,age}){
         return(<View style={styles.row2}>
-<<<<<<< HEAD
-          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee",{'empName':empName,'empid':empid,'age':age})}} style={styles.Listitems}>
-=======
+
+
+
           <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'empName':empName,'empid':empid,'age':age})}} style={styles.Listitems}>
->>>>>>> e646f81709f40253f78e593522583b160cfe9382
+
           
             <Text style={styles.txt}> {empid} </Text>
             <Text style={styles.txt1}> {empName} </Text>
