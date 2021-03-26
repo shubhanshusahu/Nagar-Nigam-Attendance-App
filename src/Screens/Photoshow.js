@@ -12,7 +12,27 @@ const route= useRoute();
 
   const [image, setImage] = useState(route.params.photo);
   
- 
+  const submit=()=>{
+    alert("Attendance Mark Sucessfully");
+    navigation.navigate("My-Attendance");
+  }
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    
+
+  const now = new Date(),
+     date = now.getDate(); //Current Date
+     month = now.getMonth() + 1; //Current Month
+     year = now.getFullYear(); //Current Year
+     hours = now.getHours(); //Current Hours
+     min = now.getMinutes(); //Current Minutes
+     sec = now.getSeconds(); //Current Seconds
+    setCurrentDate(
+      date + '/' + month + '/' + year 
+      + ' ' + hours + ':' + min + ':' + sec
+    );
+  }, []);
   return (
     
       
@@ -26,7 +46,12 @@ const route= useRoute();
           
            
       
-        
+         <Text style={styles.textStyle}>
+            Current Date Time
+          </Text>
+          <Text style={styles.textStyle}>
+            {currentDate}
+          </Text>
        
       
      
@@ -38,7 +63,12 @@ const route= useRoute();
 
 
 
-           
+      <AwesomeButtonRick  style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2}  backgroundColor="#fff" type="primary"  onPress={()=>{navigation.navigate("Mark Attendance")}} >
+     Retake photo
+    </AwesomeButtonRick>
+    <AwesomeButtonRick  style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2}  backgroundColor="#fff" type="primary"  onPress={()=>submit()} >
+     mark attendance
+    </AwesomeButtonRick>
     
 
    </LinearGradient>
@@ -116,5 +146,12 @@ postInput: {
   borderColor:'#3DFDF4',
   padding:15,
   
-  }
+  },
+  textStyle: {
+ 
+    fontSize: 18,
+    color: '#fff',
+    paddingBottom:5,
+    
+  },
 });
