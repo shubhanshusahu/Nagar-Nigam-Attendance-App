@@ -10,7 +10,7 @@ let camera=Camera;
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [photo1, setphoto1]=useState(null);
+  const [flag, setflag]=useState(false);
   const route= useRoute();
   const [capturedImage, setCapturedImage] = useState(true)
   const [flashMode, setFlashMode] = useState('off')
@@ -21,11 +21,37 @@ export default function App() {
   //   longitude: 34.9455526,
   //   latitudeDelta: 0.0922,
   //   longitudeDelta: 0.0421}});
-  const faceDetected = ({faces}) => {
-    setFaces(faces)
-    console.log(faces)
+  // const faceDetected = ({faces}) => {
+  //   setFaces(faces)
+  //   console.log(faces)
     
-  }
+  // }
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+      
+        setErrorMsg('Permission to access location was denied');
+        
+        return;
+      }
+if(Location.hasServicesEnabledAsync({}))
+     {setLocation(await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.High}));
+    
+    }
+else
+     {
+       setLocation(null);
+     
+      }
+    
+    })();
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+ 
 const getLocation =()=>{
 
   (async () => {
@@ -36,8 +62,10 @@ const getLocation =()=>{
         
         return;
       }
+      
 if( Location.hasServicesEnabledAsync({accuracy: Location.Accuracy.High}))
    {
+
      setLocation(await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High,enableHighAccuracy: true}));
   
   }
@@ -70,39 +98,18 @@ setLocation(null)
       alert(JSON.stringify(location));
       alert("Marking attendance of "+route.params.empName)
       getLocation();
-     if(location)   
+     if((location!=null) && ( await Location.hasServicesEnabledAsync()))   
       navigation.navigate("Show Photo",{'photo':photo.uri});
       else
       {
        
 
         getLocation();
-        getLocation();
+       
    }
     }
   };
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== 'granted') {
-      
-        setErrorMsg('Permission to access location was denied');
-        
-        return;
-      }
-if(Location.hasServicesEnabledAsync({}))
-     setLocation(await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.High}));
-else
-     { setLocation("null");}
- 
-    
-    })();
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
- 
+
   if (hasPermission === null) {
     return <View />;
   }
@@ -141,7 +148,7 @@ else
               <MaterialIcons name="loop" size={40} color="#fff" alignItems='center' />
             
        </TouchableOpacity>
-        
+  
 <TouchableOpacity
                       onPress={()=>snap()}
                       style={{
@@ -155,6 +162,8 @@ else
                         backgroundColor: '#fff'
                       }}
                     />
+    
+       
        <TouchableOpacity style={styles.flash1} onPress={__handleFlashMode} >
               <Text
              
