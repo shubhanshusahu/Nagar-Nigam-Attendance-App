@@ -14,7 +14,7 @@ export default function EmpolyeeHome() {
       let { status } = await Location.requestPermissionsAsync();
    if (status !== 'granted') {
         
-          setErrorMsg('Permission to access location was denied');
+          setErrorMsg('Permission to access location was denied',{'empid':"self",'empName':"self"});
           
           return;
         }

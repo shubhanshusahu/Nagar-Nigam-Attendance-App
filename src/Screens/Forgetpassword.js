@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation ,useRoute} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
-export default function UpdateEmp() {
-    const route=useRoute();
-  const [empid, setempid] = useState(route.params.empid)
-  const [name, setName] = useState(route.params.empName)
-  const [dob, setDob] = useState(route.params.age)
+
+export default function Forget() {
+  const [empid, setempid] = useState("")
+  const [name, setName] = useState("")
+  const [dob, setDob] = useState("")
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
+  const [selectedValue, setSelectedValue] = useState("java");
   const clear=()=> 
   {
     setName("");
@@ -24,13 +24,13 @@ export default function UpdateEmp() {
   }
   const validate=()=>{
     var r=mno;
-    //var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
     var letters=/^[A-Z a-z]+$/;
     if ((!empid=="") && (empid.length>2) && !isNaN(empid))
     {
     if ((name.match(letters)) && (!name=="") && (name.length>2))
     {
-      if ((!dob=="")){    //(dob.match(dateformat)) &&
+      if ((dob.match(dateformat)) && (!dob=="")){
         
      
       if ((mno.length==10) && (!mno=="") && !isNaN(mno)){
@@ -84,14 +84,13 @@ else{
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
-      
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
          <TextInput
         placeholder="Employee Id" 
         placeholderTextColor='#3AB432'
         textAlign='left'
-        value={empid.toString()}
+        value={empid}
         onChangeText={text => setempid(text)}
         style={styles.txt}
        
@@ -110,7 +109,7 @@ else{
         placeholderTextColor='#3AB432'
         textAlign='left'
         onChangeText={text => setDob(text)} 
-        value={dob.toString()}
+        value={dob}
         style={styles.txt}
        
       />
@@ -139,7 +138,49 @@ else{
         textAlign='left'
         style={styles.txt}
        
-      />
+      /> 
+      <View style={{
+ alignSelf:"center",
+  borderWidth: 2,
+  borderColor:'#3AB432',
+  borderRadius: 20,
+  marginVertical:5,
+  flexDirection:'row',
+  alignItems:'center',
+  paddingHorizontal:5
+}}>
+      <Picker
+      selectedValue={selectedValue}
+     
+     style={{ color:'#3AB432', height: 35, width: 165 ,borderRadius:25}}
+  
+      onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+    > 
+      <Picker.Item label="Java" value="java" style={styles.txt}/>
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+      <Picker.Item label="Java" value="java" />
+      <Picker.Item label="JavaScript" value="js" />
+      <Picker.Item label="Python" value="jt" />
+     
+    </Picker>
+    <AntDesign name="caretdown" size={24} color= '#39E42D'/>
+    </View>
       </View>
       <TouchableOpacity  onPress={()=>{validate()}}>
     
@@ -152,18 +193,8 @@ else{
 </TouchableOpacity>
 
       </View>
-      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
-    onPress={()=>{navigation.navigate("Checking Attendance")}} >
-      <Text style={{fontSize:15,color:'#FFF'}}>Check {route.params.empName}'s Attendance</Text>
-    </AwesomeButtonRick>
-      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
-    onPress={()=>{navigation.navigate("Mark Attendance",{'empid':route.params.empid,'empName':route.params.empName})}} >
-      <Text style={{fontSize:15,color:'#FFF'}}>Mark Attendance</Text>
-    </AwesomeButtonRick>
-      <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
-    onPress={()=>{navigation.navigate("Work Locations")}} >
-      <Text style={{fontSize:15,color:'#FFF'}}>Add/Edit Work Locations</Text>
-    </AwesomeButtonRick>
+  
+      
    </LinearGradient>
   );
 }
@@ -173,7 +204,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#fff',
   },
   background: {
     position: 'absolute',
@@ -183,11 +214,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   button: {
-    
-    height:40,
-   
-    marginVertical:2,
-    width:290
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginVertical:5,
+    width:200
   },
   text: {
     backgroundColor: 'transparent',
@@ -219,7 +250,8 @@ const styles = StyleSheet.create({
   forg:{
       
     height: 30,
-     
+     backfaceVisibility:'visible',
+     backgroundColor:"blue",
       fontSize:15,
      color:"#39E42D",
        margin:0,

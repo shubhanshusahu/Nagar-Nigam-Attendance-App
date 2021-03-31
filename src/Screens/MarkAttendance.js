@@ -43,7 +43,8 @@ if( Location.hasServicesEnabledAsync({accuracy: Location.Accuracy.High}))
   }
 else
 {
-setLocation(null)
+// setLocation(null)
+setLocation(await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High,enableHighAccuracy: true}));
 }
   
   })();

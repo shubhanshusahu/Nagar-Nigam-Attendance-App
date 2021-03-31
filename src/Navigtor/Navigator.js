@@ -20,7 +20,7 @@ import PhotoShow from '../Screens/Photoshow'
 import UpdateEmp from '../Screens/UpdateEmp'
 import feedback from '../Screens/feedback'
 import Forget from '../Screens/Forgetpassword'
-import dropdown from '../Screens/dropdownlist'
+
 const AppStack = createStackNavigator();
 export default function Navigator(){
 
@@ -45,7 +45,7 @@ export default function Navigator(){
     <AppStack.Screen name="Update Employee Detail" component={UpdateEmp} />
     <AppStack.Screen name="feedback" component={feedback} />
     <AppStack.Screen name="Forget Password" component={Forget} />
-    <AppStack.Screen name="dropdown" component={dropdown} />
+   
 
     {/* <AppStack.Screen name="Product" component={Product} /> */}
     </AppStack.Navigator>
