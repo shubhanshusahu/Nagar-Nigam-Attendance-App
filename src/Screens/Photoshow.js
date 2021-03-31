@@ -58,10 +58,10 @@ const route= useRoute();
 
 
      
-      {image && <Image source={{ uri: image }} style={{ width:350,height:500}} />}
+      {image && <Image source={{ uri: image }} style={{ flex:1,width:350}} />}
   
 
-
+<View flexDirection='row'>
 
       <AwesomeButtonRick  style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2}  backgroundColor="#fff" type="primary"  onPress={()=>{navigation.navigate("Mark Attendance")}} >
      Retake photo
@@ -70,7 +70,7 @@ const route= useRoute();
      mark attendance
     </AwesomeButtonRick>
     
-
+    </View>
    </LinearGradient>
   );
 }
