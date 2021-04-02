@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute } from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function PublicHome() {
-
+ const route = useRoute();
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -13,21 +13,21 @@ export default function PublicHome() {
          <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 265,0.6)', 'transparent']}
+        colors={['rgba(122, 51, 265,0.8)', 'transparent']}
         style={styles.background}
-      />
-  
+     />
+  <Text  style={styles.txt}> Welcome {route.params.Name} </Text>
   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{navigation.navigate("Complain")}} >
      Complain 
     </AwesomeButtonRick>
-    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>{navigation.navigate("feedback")}}  >
      Feedback
     </AwesomeButtonRick>
     <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
      Complain Status Check
     </AwesomeButtonRick>
    
-      
+ 
     </View>
   );
 }
@@ -68,14 +68,15 @@ const styles = StyleSheet.create({
 
   },
   txt: {
-    fontSize:18,
-     color:"#fff",
-        width:200,
+    fontSize:25,
+     color:"#FFF",
+        width:"80%",
        padding:5,
        marginBottom:20,
-    
-       borderWidth:1,
-       borderRadius:13,
+       height:50,
+       textAlign:"center",
+       borderWidth:2,
+       borderRadius:8,
        borderColor:'#7A33FF',
      
   },

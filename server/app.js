@@ -246,6 +246,93 @@ AddProduct.findOneAndDelete({'Barcode':req.body.Barcode})
 
 
 })
+app.post('/sign-in',(req,res)=> {
+   
+       var MobileNumber=req.body.MobileNumber;    
+       var  Password=req.body.Password;   
+
+        User.findOne({$and:[{'MobileNumber':MobileNumber},{'Password':Password}]})
+        .then(data=>{
+            console.log(data)
+            if(data){
+             
+                res.send({'success':true,'Name':data.Name,'MobileNumber':data.MobileNumber})
+
+            }
+            else{
+                
+                res.send({'success':false,'message':'Customer not found, Check your login credentials'})
+                
+    
+            }
+    
+    }).catch(err=>{
+        console.log(err)
+    })
+
+  
+})
+
+app.get('/signup-data',(req,res)=> {
+    User.findOne({'MobileNumber':req.body.MobileNumber})
+    .then(data=>{
+        
+        if(data){
+    
+            res.send({'success':true})
+
+        }
+        else{
+            res.send({'success':false})
+    const user= new User({
+        Name:req.body.Name,
+        Dateofbirth:req.body.Dateofbirth,
+        MobileNumber:req.body.MobileNumber,
+        Password:req.body.Password
+    })  
+    user.save()
+    .then(data=>{
+       
+        
+    }).catch(err=>{
+        console.log(err)
+    })
+ } 
+})
+
+})
+app.post('/forgotpassword',(req,res)=> {
+    console.log(req.body)
+   
+add.findOne({$and:[{'MobileNumber':req.body.MobileNumber},{'Dateofbirth':req.body.Dateofbirth} ] })
+.then(data=>{
+    console.log(data)
+    if(data==null){
+        res.send({'success':false}) 
+    }
+    else
+    {res.send({'success':true })
+   
+}
+})
+    
+})
+app.post('/passUpdate',(req,res)=>{
+    const filter={MobileNumber:req.body.MobileNumber};
+    const update={
+        Password:req.body.Password, 
+    };
+    add.findOneAndUpdate(filter,update)  
+
+    .then(data=>{
+        console.log(data)
+        
+    }).catch(err=>{
+        console.log(err)
+    })
+
+
+})
 app.post('/update',(req,res)=> {
     AdminUser.findByIdAndUpdate(req.body.id,{
         Name:req.body.name,

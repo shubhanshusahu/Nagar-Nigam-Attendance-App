@@ -3,8 +3,9 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-na
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign,Feather } from '@expo/vector-icons';
 export default function PublicSignUp() {
+  const navigation = useNavigation();
   const [name, setName] = useState("")
   const [dob, setDob] = useState("")
   const [mno, setMno] = useState("")
@@ -32,8 +33,9 @@ export default function PublicSignUp() {
         if((!pass=="") &&(pass.length>3)){
           if( (!repass=="")) {
           if((pass==repass) && (!repass=="")) {
-            alert(name+"Account created sucessfully")
-            navigation.navigate("Public Login")
+            
+            submit_data();
+          
             
        }
        else{
@@ -63,8 +65,48 @@ export default function PublicSignUp() {
 }
     
 }
+const submit_data=()=> {
+   
+ 
+   
+  fetch("http://3be020024ec5.ngrok.io/signup-data", {
+    method: "POST",
+    headers:{
+   
+      'Content-Type': 'application/json'
+    },
 
-  const navigation = useNavigation();
+    body:JSON.stringify({
+      'Name': name,
+      'Dateofbirth':dob,
+      'MobileNumber': mno,
+      'Password': pass
+    })
+
+  })
+    .then(res => res.json())
+
+    .then((data) => {
+      
+      if (data.success) {
+        alert("mobile number already exist")
+        setMno("")
+      }
+      else{
+        alert("Registered! Sucessfully ")
+        navigation.navigate("Public Login");
+    
+      }  
+    })
+    .catch(err => {
+      Alert.alert('Err:', err.message);
+    });
+     
+}
+
+
+
+ 
   return (
     
       
@@ -74,6 +116,7 @@ export default function PublicSignUp() {
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
+        <Image style={{width:180,height:130,marginBottom:10}} source={require('../../assets/sign-up.png')}/>
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
          <TextInput
@@ -121,7 +164,8 @@ export default function PublicSignUp() {
        
       />
       </View>
-      <TouchableOpacity  onPress={()=>{validate()}}>
+      <View flexDirection='column'> 
+      <TouchableOpacity  style={styles.lbl} onPress={()=>{validate()}}>
     
      
    
@@ -130,7 +174,16 @@ export default function PublicSignUp() {
 
 
 </TouchableOpacity>
+<TouchableOpacity   style={styles.lbl} onPress={()=>{clear()}}>
+    
+     
+   
+  <Feather name="delete" size={45}  color='#39E42D'  />       
+   
 
+
+</TouchableOpacity>
+</View>
       </View>
   
       
@@ -166,10 +219,10 @@ const styles = StyleSheet.create({
     
   },
   lbl:{
-    color:"#fff",
-    fontSize:18,
-    flexDirection:"row",
-    marginBottom:10,
+   
+    
+   
+    marginVertical:5,
    
 
   },
