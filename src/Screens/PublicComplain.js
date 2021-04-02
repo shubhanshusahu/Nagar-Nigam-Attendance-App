@@ -36,14 +36,14 @@ export default function PublicComplain() {
       quality: 1,
       base64 :true
     });
-
-    //IMAGe URI
      
 
     if (!result.cancelled) {
 
-      setImage(result.uri)
+      setImage(result.base64)
+      
         }
+       
   }
   
   const openCam = async () => {
@@ -51,14 +51,16 @@ export default function PublicComplain() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       // allowsEditing: true,
       // aspect: [8,16],
-      
+     
       quality: 1,
-      base64 :true
+       base64 :true
     });
     if (!result1.cancelled) {
 
-      setImage(result1.uri)
+      setImage(result1.base64)
+      
         }
+       
   }
   return (
     
@@ -76,7 +78,6 @@ export default function PublicComplain() {
         
          <TextInput
             style={styles.postInput}
-          
             multiline={true}
             numberOfLines={3}
             placeholder="TYPE HERE ......"
@@ -92,10 +93,11 @@ export default function PublicComplain() {
       <AwesomeButtonRick  onPress={()=>{openCam()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
       Click Picture
     </AwesomeButtonRick>
-    <AwesomeButtonRick style={styles.button,{width:310,marginBottom:10,marginLeft:7}} width={310} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+    <AwesomeButtonRick style={styles.button,{width:310,marginBottom:10,marginLeft:7}} width={310} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" 
+  >
       Submit
     </AwesomeButtonRick>
-      {image && <Image source={{ uri: image }} resizeMode='contain' style={{ width:333,height:333,marginBottom:5}} />}
+      {image && <Image source={{uri:("data:image/jpeg;base64,"+image)}}  style={{ width:333,height:333,marginBottom:5}} />}
     </View>
     <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
       Upload image

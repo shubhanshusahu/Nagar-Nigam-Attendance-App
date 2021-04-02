@@ -21,17 +21,44 @@ const route= useRoute();
   useEffect(() => {
     
 
-  const now = new Date(),
-     date = now.getDate(); //Current Date
-     month = now.getMonth() + 1; //Current Month
-     year = now.getFullYear(); //Current Year
-     hours = now.getHours(); //Current Hours
-     min = now.getMinutes(); //Current Minutes
-     sec = now.getSeconds(); //Current Seconds
-    setCurrentDate(
-      date + '/' + month + '/' + year 
+  // const now = new Date(),
+  //    date = now.getDate(); //Current Date
+  //    month = now.getMonth() + 1; //Current Month
+  //    year = now.getFullYear(); //Current Year
+  //    hours = now.getHours(); //Current Hours
+  //    min = now.getMinutes(); //Current Minutes
+  //    sec = now.getSeconds(); //Current Seconds
+    // setCurrentDate(
+    //   date + '/' + month + '/' + year 
+    //   + ' ' + hours + ':' + min + ':' + sec
+    // );
+
+    (async () => {
+  fetch("http://worldtimeapi.org/api/ip",{
+  
+    method:"GET",
+    headers:{
+     
+      'Content-Type':'application/json'
+    },  
+     
+    
+  })
+  .then(res=>res.json())
+  .then((res)=>{
+   // setCurrentDate("Date: "+res.datetime.slice(0,10)+" Time: "+res.datetime.slice(11,19))
+  const year=res.datetime.slice(0,4)
+  const month=res.datetime.slice(5,7)
+  const day=res.datetime.slice(8,10)
+  const hours=res.datetime.slice(11,13)
+  const min=res.datetime.slice(14,16)
+  const sec=res.datetime.slice(17,19)
+  setCurrentDate(
+      day + '-' + month + '-' + year 
       + ' ' + hours + ':' + min + ':' + sec
     );
+  })
+})();
   }, []);
   return (
     

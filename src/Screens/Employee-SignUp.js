@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, FlatList,View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { AntDesign } from '@expo/vector-icons';
-
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import * as ImagePicker from 'expo-image-picker';
 export default function EmployeeSignUp() {
   const [empid, setempid] = useState("")
   const [name, setName] = useState("")
@@ -13,6 +14,14 @@ export default function EmployeeSignUp() {
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
   const [selectedValue, setSelectedValue] = useState("java");
+  let dataSource=[{
+    Name:"shivanshu",
+    Empid:"12334"
+  },
+{
+  Name:"danikrishu",
+  Empid:"88888"
+}]
   const clear=()=> 
   {
     setName("");
@@ -30,15 +39,14 @@ export default function EmployeeSignUp() {
     {
     if ((name.match(letters)) && (!name=="") && (name.length>2))
     {
-      if ((dob.match(dateformat)) && (!dob=="")){
+      
         
      
       if ((mno.length==10) && (!mno=="") && !isNaN(mno)){
         if((!pass=="") &&(pass.length>3)){
           if( (!repass=="")) {
           if((pass==repass) && (!repass=="")) {
-            alert(name + " Account created sucessfully")
-           navigation.navigate("My Employee")
+            submitdata();
             
        }
        else{
@@ -57,11 +65,7 @@ export default function EmployeeSignUp() {
     alert("Enter valid mobile number")
     setMno("");
   }
-}else{
-  alert("Date is wrong use this format DD/MM/YYYY OR DD-MM-YYYY")
-  setDob("");
-}
-  
+
  } else{
   alert("Name is not in correct format")
   setName("");
@@ -75,6 +79,97 @@ else{
 }
 
   const navigation = useNavigation();
+
+
+  
+function Item({Name,Empid}){
+  return(<View>
+<Picker.Item label={Name} value={Empid} />
+</View>
+  );
+}
+const [image, setImage] = useState(null);
+  
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+
+   
+  }, []);
+
+  const pickImage = async () => {
+   
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      // allowsEditing: true,
+      // aspect: [8,16],
+      
+      quality: 0.2,
+      base64 :true
+    });
+
+    //IMAGe URI
+     
+
+    if (!result.cancelled) {
+
+      setImage(result.base64)
+        }
+  }
+  
+  const openCam = async () => {
+    let result1 = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      // allowsEditing: true,
+      // aspect: [8,16],
+      
+      quality: 0.2,
+      base64 :true
+    });
+    if (!result1.cancelled) {
+
+      setImage(result1.base64)
+     
+        }
+  }
+  const submitdata=()=>{
+
+    //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
+    fetch("http://484331d59aa3.ngrok.io/send-data",{
+
+      method:"POST",
+      headers:{
+       
+        'Content-Type':'application/json'
+      },  
+        body:JSON.stringify({
+        'Name': name,  
+        'Password': pass,
+        'EmployeeId': empid,
+        'Under':selectedValue,
+        'Pfp':image
+    })
+      
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      if(data.success==true)
+        alert("Employee "+name+" is already registered!");
+      else
+        alert("Employee "+name+" is registered successfully!");
+      console.log(data)
+    
+    })    
+  }
+
+
   return (
     
       
@@ -104,15 +199,7 @@ else{
         style={styles.txt}
        
       />
-       <TextInput
-        placeholder="Date-Of-Birth" 
-        placeholderTextColor='#3AB432'
-        textAlign='left'
-        onChangeText={text => setDob(text)} 
-        value={dob}
-        style={styles.txt}
-       
-      />
+      
         <TextInput
         placeholder="Mobile Number" 
         placeholderTextColor='#3AB432'
@@ -130,6 +217,7 @@ else{
        style={styles.txt}
        
       />
+      
      <TextInput
         placeholder="Re-Enter Password" 
         placeholderTextColor='#3AB432'
@@ -139,6 +227,8 @@ else{
         style={styles.txt}
        
       /> 
+      <View style={styles.bor}>
+      <Text style={{fontSize:18,color:'#3AB432'}}>Under Whom?</Text>
       <View style={{
  alignSelf:"center",
   borderWidth: 2,
@@ -149,6 +239,7 @@ else{
   alignItems:'center',
   paddingHorizontal:5
 }}>
+
       <Picker
       selectedValue={selectedValue}
      
@@ -178,9 +269,30 @@ else{
       <Picker.Item label="JavaScript" value="js" />
       <Picker.Item label="Python" value="jt" />
      
+
+      {/* <FlatList
+data={dataSource}
+renderItem={({item})=>(
+<Item Empid={item.Empid} Name={item.Name} />
+ 
+)}
+keyExtractor={(item)=>item.Barcode1}
+/> */}
     </Picker>
-    <AntDesign name="caretdown" size={24} color= '#39E42D'/>
     </View>
+    </View>
+    <View style={styles.bor}>
+    <Text style={{fontSize:18,color:'#3AB432'}}>Upload Profile picture</Text>
+    <View style={{flexDirection:'row'}}>
+    <AwesomeButtonRick  onPress={()=>{openCam()}} style={styles.button} width={80} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Click
+    </AwesomeButtonRick>
+
+    <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={80} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
+      Upload
+    </AwesomeButtonRick>
+    </View>
+   </View>
       </View>
       <TouchableOpacity  onPress={()=>{validate()}}>
     
@@ -193,7 +305,7 @@ else{
 </TouchableOpacity>
 
       </View>
-  
+      {image && <Image source={{ uri:("data:image/jpeg;base64,"+image)}} resizeMode='contain' style={{ width:333,height:333,marginBottom:5}} />}
       
    </LinearGradient>
   );
@@ -213,12 +325,21 @@ const styles = StyleSheet.create({
     top: 0,
     height: 300,
   },
+  bor:{
+    borderColor:'#3AB432',
+    borderWidth:1,
+    borderRadius:20,
+    padding:5,
+    marginVertical:5
+  }
+  ,
   button: {
-    padding: 15,
+    
     alignItems: 'center',
     borderRadius: 5,
     marginVertical:5,
-    width:200
+    marginHorizontal:5,
+    width:80
   },
   text: {
     backgroundColor: 'transparent',

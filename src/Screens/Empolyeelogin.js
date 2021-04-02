@@ -7,6 +7,42 @@ import { AntDesign } from '@expo/vector-icons';
 export default function EmpolyeeLogin() {
     const navigation = useNavigation();
 
+    const [empid,setEmpid] = useState("")
+    const [password,setPass] = useState("")
+
+    const logincheck=()=>{
+
+   
+      fetch("http://484331d59aa3.ngrok.io/login",{
+  
+        method:"POST",
+        headers:{
+         
+          'Content-Type':'application/json'
+        },  
+          body:JSON.stringify({
+          
+          'Password': password,
+          'EmployeeId': empid,
+         })
+        
+      })
+      .then(res=>res.json())
+      .then((res)=>{
+        
+        if( res.success === true)
+        {
+          
+          navigation.navigate("Home Page",{"Name":res.Name,'empid':res.empid,'under':res.Under,'barfromstock':null,'Pfp':res.Pfp})
+          
+        }
+        else{
+          alert(res.message)
+      
+        } 
+          
+      })
+    }
   return (
    
       
@@ -22,17 +58,17 @@ export default function EmpolyeeLogin() {
         placeholder="User Id" 
         placeholderTextColor='#80C922'
         textAlign='left'
-        style={styles.txt}
+        style={styles.txt} value={empid} onChangeText={text=>setEmpid(text)}
        
       />
        <TextInput
         placeholder="User Password" textAlign='left'
         placeholderTextColor='#80C922'
-       style={styles.txt}
-       
+       style={styles.txt} value={password} onChangeText={text=>setPass(text)}
+       secureTextEntry={true}
       />
       </View>
-       <TouchableOpacity  onPress={()=>{navigation.navigate("Home Page")}}>
+       <TouchableOpacity  onPress={()=>{logincheck()}}>
     
      
    

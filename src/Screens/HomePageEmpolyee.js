@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { StyleSheet, View,TouchableOpacity,TextInput,} from 'react-native';
+import { StyleSheet, View,TouchableOpacity,Image,TextInput,Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import * as Location from 'expo-location';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function EmpolyeeHome() {
 
   const navigation = useNavigation();
+  const route=useRoute();
+   
+    
   const getLocation =()=>{
 
     (async () => {
@@ -20,7 +23,7 @@ export default function EmpolyeeHome() {
         }
   if(Location.hasServicesEnabledAsync({}))
      {
-      navigation.navigate("Mark Attendance");    
+      navigation.navigate("Mark Attendance",{'empName':"self"});    
     }
   else
   {
@@ -37,9 +40,17 @@ export default function EmpolyeeHome() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.background}
       />
-
-  
-      
+<TouchableOpacity style={styles.txt}>
+<Image
+        style={ {backgroundColor:'#2196F3',
+         padding:5,
+         height:50,width:50,borderRadius:50,marginLeft:1}}
+        source={{
+          uri:("data:image/jpeg;base64,"+route.params.Pfp)
+        }}
+      />
+  <Text style={{color:"#fff",fontSize:18,marginHorizontal:7}}>{route.params.Name}</Text>
+      </TouchableOpacity>
 <AwesomeButtonRick style={styles.button}   textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF"  type="secondary"  onPress={()=>{navigation.navigate("My Employee")}} >
     MY Employee
     </AwesomeButtonRick>
@@ -112,12 +123,15 @@ const styles = StyleSheet.create({
   txt: {
     fontSize:18,
      color:"#fff",
-        width:200,
+       
        padding:5,
        marginBottom:20,
        borderWidth:1,
-       borderRadius:13,
+       borderRadius:30,
+       textAlign:'center',
        borderColor:'#7A33FF',
-     
+     alignItems:'center',
+     justifyContent:'center',
+     flexDirection:'row',
   },
 });
