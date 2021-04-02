@@ -13,7 +13,7 @@ export default function EmpolyeeLogin() {
     const logincheck=()=>{
 
    
-      fetch("http://484331d59aa3.ngrok.io/login",{
+      fetch("http://3be020024ec5.ngrok.io/login",{
   
         method:"POST",
         headers:{
@@ -52,18 +52,21 @@ export default function EmpolyeeLogin() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.container}
       >
+        <View style={{borderRadius:25,borderColor:'#00ABF0',borderWidth:2,alignItems:'center',padding:7,marginBottom:6,paddingHorizontal:13}}>
+        <Image style={{width:220,height:270,
+        }} source={require('../../assets/admin.png')}/>
         <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
         <TextInput
         placeholder="User Id" 
-        placeholderTextColor='#80C922'
+        placeholderTextColor='#01DAAC'
         textAlign='left'
         style={styles.txt} value={empid} onChangeText={text=>setEmpid(text)}
        
       />
        <TextInput
         placeholder="User Password" textAlign='left'
-        placeholderTextColor='#80C922'
+        placeholderTextColor='#01DAAC'
        style={styles.txt} value={password} onChangeText={text=>setPass(text)}
        secureTextEntry={true}
       />
@@ -73,13 +76,14 @@ export default function EmpolyeeLogin() {
      
    
            
-           <AntDesign name="login" size={45}  color='#80C922' />
+           <AntDesign name="login" size={45}  color='#00ABF0' />
        
      
       </TouchableOpacity>
       </View>
+      </View>
       <Image style={{width:"100%",height:170}} source={require('../../assets/city.png')}/>
-    
+   
     </LinearGradient>
     
   );
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
        marginVertical:4,
        borderWidth:1,
        borderRadius:13,
-       borderColor:"#80C922",
+       borderColor:"#02CAC6",
      
   },
 });
