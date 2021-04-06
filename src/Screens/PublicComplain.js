@@ -75,7 +75,15 @@ export default function PublicComplain() {
             <View style={{flexDirection:'column',marginRight:10,alignItems:'center',justifyContent:'center'}}>
            
       
-        
+            <TextInput
+            style={styles.postInput}
+            
+            numberOfLines={2}
+            placeholder="Address.."
+            placeholderTextColor="#3DFDF4"
+            underlineColorAndroid='transparent'
+            require={true}
+/>
          <TextInput
             style={styles.postInput}
             multiline={true}

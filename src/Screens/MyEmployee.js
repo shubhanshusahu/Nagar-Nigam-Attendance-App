@@ -15,7 +15,7 @@ export default function MyEmployee() {
     (async () => {
    
 
-  fetch("http://f56fade78cf7.ngrok.io/getEmps",{
+  fetch("http://09f68b2466f6.ngrok.io/getEmps",{
 
     method:"POST",
     headers:{

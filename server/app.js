@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({
  app.use(express.urlencoded({limit:'50mb'}));
 let port = process.env.PORT || 3000
 require('./EmployeeSchema')
+require('./public')
 const emp= mongoose.model("emp")
+const User= mongoose.model("Public")
 const mongoUri="mongodb+srv://rishi:12345@cluster0.00f3y.mongodb.net/OnlineAttendance";
 mongoose.connect(mongoUri,{
     useNewUrlParser:true,
@@ -39,6 +41,15 @@ app.get('/',(req,res)=>{
     })
     
 })
+app.get('/public',(req,res)=>{
+    User.find({}).then(data=>{
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+    
+})
+
 app.post('/emp',(req,res)=>{
     const adminuser= new emp({
         Name:"shanshu sahu",
@@ -262,6 +273,94 @@ AddProduct.findOneAndDelete({'Barcode':req.body.Barcode})
     console.log(err)
 })
 
+
+
+})
+app.post('/sign-in',(req,res)=> {
+   
+       var MobileNumber=req.body.MobileNumber;    
+       var  Password=req.body.Password;   
+
+        User.findOne({$and:[{'MobileNumber':MobileNumber},{'Password':Password}]})
+        .then(data=>{
+            console.log(data)
+            if(data){
+             
+                res.send({'success':true,'Name':data.Name,'MobileNumber':data.MobileNumber})
+
+            }
+            else{
+                
+                res.send({'success':false,'message':'Customer not found, Check your login credentials'})
+                
+    
+            }
+    
+    }).catch(err=>{
+        console.log(err)
+    })
+
+  
+})
+
+app.post('/signup-data',(req,res)=> {
+    User.findOne({'MobileNumber':req.body.MobileNumber})
+    .then(data=>{
+        
+        if(data){
+    
+            res.send({'success':true})
+
+        }
+        else{
+            res.send({'success':false})
+    const user= new User({
+        Name:req.body.Name,
+        Dateofbirth:req.body.Dateofbirth,
+        MobileNumber:req.body.MobileNumber,
+        Password:req.body.Password
+    })  
+    user.save()
+    .then(data=>{
+       
+        
+    }).catch(err=>{
+        console.log(err)
+    })
+ } 
+})
+
+})
+app.post('/forgotpassword',(req,res)=> {
+    console.log(req.body)
+   
+User.findOne({$and:[{'MobileNumber':req.body.MobileNumber},{'Dateofbirth':req.body.Dateofbirth} ] })
+.then((data)=>{
+    console.log(data)
+    if(data==null){
+        res.send({'success':false}) 
+    }
+    else
+    {
+        res.send({'success':true })
+   
+}
+})
+    
+})
+app.post('/passUpdate',(req,res)=>{
+    const filter={MobileNumber:req.body.MobileNumber};
+    const update={
+        Password:req.body.Password, 
+    };
+    User.findOneAndUpdate(filter,update)  
+
+    .then(data=>{
+        console.log(data)
+        
+    }).catch(err=>{
+        console.log(err)
+    })
 
 
 })

@@ -2,32 +2,42 @@ import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute } from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 export default function PublicHome() {
-
+ const route = useRoute();
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       
+      
          <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 265,0.6)', 'transparent']}
+        colors={['rgba(122, 51, 265,0.8)', 'transparent']}
         style={styles.background}
-      />
-  
+        
+     />
+     <View style={{height:"30%",alignItems:'flex-start',flexDirection:'row'}}>
+     <Text  style={styles.txt}> Welcome {route.params.Name} </Text>
+     <AwesomeButtonRick  style={styles.button1} textColor="#fff" width={80} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>navigation.navigate("Public Login")}  >
+      Logout
+    </AwesomeButtonRick>
+       </View> 
+
+     <View style={{height:"70%",alignItems:'center'}}> 
+ 
   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  onPress={()=>{navigation.navigate("Complain")}} >
      Complain 
     </AwesomeButtonRick>
-    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
+    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>{navigation.navigate("feedback")}}  >
      Feedback
     </AwesomeButtonRick>
     <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
      Complain Status Check
     </AwesomeButtonRick>
-   
-      
+   </View>
+ 
     </View>
   );
 }
@@ -53,6 +63,10 @@ const styles = StyleSheet.create({
     marginVertical:5,
     width:200
   },
+  button1: {
+    marginTop:7,
+  
+  },
   text: {
     backgroundColor: 'transparent',
     fontSize: 14,
@@ -68,14 +82,15 @@ const styles = StyleSheet.create({
 
   },
   txt: {
-    fontSize:18,
-     color:"#fff",
-        width:200,
-       padding:5,
-       marginBottom:20,
-    
-       borderWidth:1,
-       borderRadius:13,
+    fontSize:22,
+     color:"#FFF",
+        width:"70%",
+       marginRight:15,
+       marginTop:10,
+       height:50,
+       textAlign:"left",
+       
+      
        borderColor:'#7A33FF',
      
   },

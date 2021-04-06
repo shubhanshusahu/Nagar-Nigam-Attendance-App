@@ -1,201 +1,189 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import { AntDesign } from '@expo/vector-icons';
-
+import renderIf from 'render-if';
 export default function Forget() {
-  const [empid, setempid] = useState("")
-  const [name, setName] = useState("")
-  const [dob, setDob] = useState("")
+    const [flag,setFlag]=useState(true);
+    const [flag2,setFlag2]=useState(false);
+    const [dob, setDob] = useState("")
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
-  const [selectedValue, setSelectedValue] = useState("java");
-  const clear=()=> 
-  {
-    setName("");
-    setDob("");
-    setMno("");
-    setPass("");
-    setrePass("");
-
-  }
-  const validate=()=>{
-    var r=mno;
-    var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-    var letters=/^[A-Z a-z]+$/;
-    if ((!empid=="") && (empid.length>2) && !isNaN(empid))
-    {
-    if ((name.match(letters)) && (!name=="") && (name.length>2))
-    {
-      if ((dob.match(dateformat)) && (!dob=="")){
-        
-     
-      if ((mno.length==10) && (!mno=="") && !isNaN(mno)){
-        if((!pass=="") &&(pass.length>3)){
-          if( (!repass=="")) {
-          if((pass==repass) && (!repass=="")) {
-            alert(name + " Account created sucessfully")
-           navigation.navigate("My Employee")
-            
-       }
-       else{
-
-        alert(" password doesn't match with re-enter password ")
-         setrePass("");
-       }
-      }else{
-        alert(" ReEnter Password")
-      }
-  }else{
-    alert("Password  too short")
-  }
-   }
-   else{
-    alert("Enter valid mobile number")
-    setMno("");
-  }
-}else{
-  alert("Date is wrong use this format DD/MM/YYYY OR DD-MM-YYYY")
-  setDob("");
-}
-  
- } else{
-  alert("Name is not in correct format")
-  setName("");
-}
-}
-else{
-      alert("Enter valid Employee ID") 
-    }
-
-    
-}
 
   const navigation = useNavigation();
-  return (
+ 
+  const login=()=>{
+     setFlag(false)
+     setFlag2(true)
+ }
+ 
+ const login_data=()=> {
+  
+   
+  fetch("http://09f68b2466f6.ngrok.io/forgotpassword", {
+    method: "POST",
+    headers:{
+   
+      'Content-Type': 'application/json'
+    },
+
+    body:JSON.stringify({
     
+      'MobileNumber': mno,
+      'Dateofbirth': dob,
+    })
+
+  })
+    .then(data => data.json())
+    .then(data=>{
+      if(data.success){
+        setFlag(false)
+        setFlag2(true)
+        
+
+      }
+      else{
+        alert("customer not found")
+      }
+     
+     
+    
+    });
+  }
+  const resetpass=()=>{
+   
+
+ 
+      fetch("http://09f68b2466f6.ngrok.io/passUpdate", {
+        method: "POST",
+        headers:{
+       
+          'Content-Type': 'application/json'
+        },
+  
+        body:JSON.stringify({
+        
+          'MobileNumber': mno,
+          'Password':pass
+          
+        })
+  
+      })
+        .then(data => data.json())
+        .then(data=>{
+        
+         
+        
+        });
+
+  
+}
+const validate=()=>{
+  if((!pass=="") &&(pass.length>3)){
+    if( (!repass=="")) {
+    if((pass==repass) && (!repass=="")) {
+    resetpass()
+   
+    alert("password has been changed!")
+    navigation.navigate("Public Login")
+ }
+ else{
+
+  alert(" password doesn't match with re-enter password ")
+   setrePass("");
+ }
+}else{
+  alert(" ReEnter Password")
+}
+}else{
+alert("Password  too short")
+}
+}
+
+
+  const clear=()=> 
+  {
+    
+    setMob("");
+    setPass(""); 
+  }
+ 
+  return (
+    <View style={styles.container}>
       
-      <LinearGradient
+         <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 255,0.4)', 'transparent']}
-        style={styles.container}
-      >
-           <View style={{flexDirection:'row' ,alignItems:'center'}}>
-         <View style={{flexDirection:'column',marginRight:10}}>
-         <TextInput
-        placeholder="Employee Id" 
-        placeholderTextColor='#3AB432'
-        textAlign='left'
-        value={empid}
-        onChangeText={text => setempid(text)}
-        style={styles.txt}
-       
-      />
-         <TextInput
-        placeholder="Name" 
-        placeholderTextColor='#3AB432'
-        textAlign='left'
-        value={name}
-        onChangeText={text => setName(text)}
-        style={styles.txt}
-       
-      />
-       <TextInput
-        placeholder="Date-Of-Birth" 
-        placeholderTextColor='#3AB432'
-        textAlign='left'
-        onChangeText={text => setDob(text)} 
-        value={dob}
-        style={styles.txt}
-       
-      />
-        <TextInput
-        placeholder="Mobile Number" 
-        placeholderTextColor='#3AB432'
-        textAlign='left'
-        value={mno}
-        onChangeText={text => setMno(text)}
-        style={styles.txt}
-       
-      />
-       <TextInput
-        placeholder="Password" textAlign='left'
-        value={pass}
-        onChangeText={text => setPass(text)}
-        placeholderTextColor='#3AB432'
-       style={styles.txt}
-       
-      />
-     <TextInput
-        placeholder="Re-Enter Password" 
-        placeholderTextColor='#3AB432'
-        onChangeText={text =>setrePass(text)}
-        value={repass}
-        textAlign='left'
-        style={styles.txt}
-       
-      /> 
-      <View style={{
- alignSelf:"center",
-  borderWidth: 2,
-  borderColor:'#3AB432',
-  borderRadius: 20,
-  marginVertical:5,
-  flexDirection:'row',
-  alignItems:'center',
-  paddingHorizontal:5
-}}>
-      <Picker
-      selectedValue={selectedValue}
-     
-     style={{ color:'#3AB432', height: 35, width: 165 ,borderRadius:25}}
+        colors={['rgba(122, 51, 255,0.7)', 'transparent']}
+        style={styles.background}
+     />
+       <Image style={{width:200,height:120}} source={require('../../assets/fp1.png')}/>
   
-      onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-    > 
-      <Picker.Item label="Java" value="java" style={styles.txt}/>
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-     
-    </Picker>
-    <AntDesign name="caretdown" size={24} color= '#39E42D'/>
-    </View>
-      </View>
-      <TouchableOpacity  onPress={()=>{validate()}}>
-    
-     
-   
-           
-    <AntDesign name="login" size={45}  color='#39E42D' />
-
-
-</TouchableOpacity>
-
-      </View>
-  
+         {renderIf(flag)(
       
-   </LinearGradient>
+         <View style={{flexDirection:'row',alignItems:"center"}}>
+         <View style={{flexDirection:'column' ,marginRight:10}}>
+         <TextInput
+        placeholder="Enter Mobile Number" 
+        placeholderTextColor='#00ABF0'
+        textAlign='left'
+         value={mno}
+         onChangeText={text => setMno(text)}
+        style={styles.txt}
+       
+      />
+         <TextInput
+        placeholder="Enter Date OF Birth" 
+        placeholderTextColor='#00ABF0'
+        textAlign='left'
+       value={dob}
+       onChangeText={text => setDob(text)}
+        style={styles.txt}
+       
+      /></View>
+      <TouchableOpacity  onPress={()=>login_data()}   >
+      <AntDesign name="login" size={45}  color='#00ABF0'/>
+      </TouchableOpacity>
+      </View>
+     
+         )}
+
+      {renderIf(flag2)(
+         
+      <View style={{flexDirection:'row',alignItems:"center"}}>
+         <View style={{flexDirection:'column' ,marginRight:10}}>
+         <TextInput
+        placeholder="New Password" 
+        placeholderTextColor='#00ABF0'
+        textAlign='left'
+       value={pass}
+       onChangeText={text => setPass(text)}
+        style={styles.txt}
+       
+      />
+         <TextInput
+        placeholder="Re-Enter Password" 
+        placeholderTextColor='#00ABF0'
+        textAlign='left'
+       value={repass}
+       onChangeText={text => setrePass(text)}
+        style={styles.txt}
+       
+      /></View>
+      <TouchableOpacity  onPress={()=>validate()}   >
+      <AntDesign name="login" size={45}  color='#00ABF0'/>
+      </TouchableOpacity>
+      </View>
+     
+         )}
+         
+          
+    </View>
+
   );
 }
 
@@ -204,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   background: {
     position: 'absolute',
@@ -234,28 +222,19 @@ const styles = StyleSheet.create({
    
 
   },
+ 
   txt: {
     fontSize:18,
      color:"#fff",
         width:200,
        padding:2,
-       marginVertical:4,
+       marginVertical:7,
+       
        borderWidth:1,
        borderRadius:13,
-       borderColor:'#39E42D',
+       borderColor:'#00ABF0',
        paddingLeft:5,
        
      
   },
-  forg:{
-      
-    height: 30,
-     backfaceVisibility:'visible',
-     backgroundColor:"blue",
-      fontSize:15,
-     color:"#39E42D",
-       margin:0,
-      textAlign:'center',
-      textDecorationLine:'underline',
-},
 });

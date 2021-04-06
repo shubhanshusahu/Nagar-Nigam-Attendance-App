@@ -40,6 +40,13 @@ export default function EmpolyeeHome() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.background}
       />
+      <View style={{height:"20%", width:"90%",flexDirection:'column',alignItems:"flex-end"}} > 
+      
+      <AwesomeButtonRick style={styles.button1}  textColor="#fff" width={100} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>navigation.navigate("Empolyee Login")}  >
+   Logout
+    </AwesomeButtonRick>
+      </View>
+      <View style={{height:"80%",width:"100%",alignItems:"center"}}>
 <TouchableOpacity style={styles.txt}>
 <Image
         style={ {backgroundColor:'#2196F3',
@@ -81,6 +88,7 @@ export default function EmpolyeeHome() {
       <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
       Viewing Feedback
     </AwesomeButtonRick>
+    </View>
 </View>
     
    
@@ -106,6 +114,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
    
     marginVertical:5,
+    
+  },
+  button1: {
+    
+    marginTop:35,
+   
+    
     
   },
   text: {
