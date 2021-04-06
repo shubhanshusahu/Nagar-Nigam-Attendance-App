@@ -10,7 +10,7 @@ export default function PublicLogin() {
   const navigation = useNavigation();
   const login_data=()=> {
   
-      fetch("http://3be020024ec5.ngrok.io/sign-in", {
+      fetch("http://8a16f2f7d140.ngrok.io/sign-in", {
         method: "POST",
         headers:{
           'Accept': 'application/json',
@@ -75,7 +75,7 @@ export default function PublicLogin() {
          <View style={{flexDirection:'column',marginRight:10}}>
         <TextInput
         placeholder="Mobile Number" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
         style={styles.txt}
         value={mno}
@@ -85,7 +85,7 @@ export default function PublicLogin() {
        <TextInput
         placeholder="Password" textAlign='left'
         
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
        style={styles.txt}
        value={pass}
        onChangeText={text =>setPass(text)}
@@ -98,7 +98,7 @@ export default function PublicLogin() {
      
    
            
-    <AntDesign name="login" size={45}  color='#39E42D' />
+    <AntDesign name="login" size={45}  color='#00ABF0' />
 
 
 </TouchableOpacity>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
        marginVertical:4,
        borderWidth:1,
        borderRadius:13,
-       borderColor:'#39E42D',
+       borderColor:'#00ABF0',
        paddingLeft:5,
      
   },
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     height: 30,
      
       fontSize:15,
-     color:"#39E42D",
+     color:"#00ABF0",
        margin:0,
       textAlign:'center',
       textDecorationLine:'underline',

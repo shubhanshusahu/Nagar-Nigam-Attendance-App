@@ -142,7 +142,7 @@ const [image, setImage] = useState(null);
   const submitdata=()=>{
 
     //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
-    fetch("http://3be020024ec5.ngrok.io/send-data",{
+    fetch("http://8a16f2f7d140.ngrok.io/send-data",{
 
       method:"POST",
       headers:{

@@ -24,7 +24,7 @@ export default function Forget() {
  const login_data=()=> {
   
    
-  fetch("https://onlinebillingapi.herokuapp.com/forgotpassword", {
+  fetch("http://8a16f2f7d140.ngrok.io/forgotpassword", {
     method: "POST",
     headers:{
    
@@ -43,6 +43,7 @@ export default function Forget() {
       if(data.success){
         setFlag(false)
         setFlag2(true)
+        
 
       }
       else{
@@ -57,7 +58,7 @@ export default function Forget() {
    
 
  
-      fetch("https://onlinebillingapi.herokuapp.com/passUpdate", {
+      fetch("http://8a16f2f7d140.ngrok.io/passUpdate", {
         method: "POST",
         headers:{
        
@@ -86,8 +87,9 @@ const validate=()=>{
     if( (!repass=="")) {
     if((pass==repass) && (!repass=="")) {
     resetpass()
-    
+   
     alert("password has been changed!")
+    navigation.navigate("Public Login")
  }
  else{
 
@@ -101,6 +103,8 @@ const validate=()=>{
 alert("Password  too short")
 }
 }
+
+
   const clear=()=> 
   {
     
@@ -125,22 +129,24 @@ alert("Password  too short")
          <View style={{flexDirection:'column' ,marginRight:10}}>
          <TextInput
         placeholder="Enter Mobile Number" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
-     
+         value={mno}
+         onChangeText={text => setMno(text)}
         style={styles.txt}
        
       />
          <TextInput
         placeholder="Enter Date OF Birth" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
-       
+       value={dob}
+       onChangeText={text => setDob(text)}
         style={styles.txt}
        
       /></View>
       <TouchableOpacity  onPress={()=>login_data()}   >
-      <AntDesign name="login" size={45}  color='#80C922'/>
+      <AntDesign name="login" size={45}  color='#00ABF0'/>
       </TouchableOpacity>
       </View>
      
@@ -152,22 +158,24 @@ alert("Password  too short")
          <View style={{flexDirection:'column' ,marginRight:10}}>
          <TextInput
         placeholder="New Password" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
-     
+       value={pass}
+       onChangeText={text => setPass(text)}
         style={styles.txt}
        
       />
          <TextInput
         placeholder="Re-Enter Password" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
-       
+       value={repass}
+       onChangeText={text => setrePass(text)}
         style={styles.txt}
        
       /></View>
       <TouchableOpacity  onPress={()=>validate()}   >
-      <AntDesign name="login" size={45}  color='#80C922'/>
+      <AntDesign name="login" size={45}  color='#00ABF0'/>
       </TouchableOpacity>
       </View>
      
@@ -224,7 +232,7 @@ const styles = StyleSheet.create({
        
        borderWidth:1,
        borderRadius:13,
-       borderColor:'#39E42D',
+       borderColor:'#00ABF0',
        paddingLeft:5,
        
      
