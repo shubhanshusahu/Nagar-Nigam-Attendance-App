@@ -51,14 +51,16 @@ export default function EmpolyeeHome() {
       />
   <Text style={{color:"#fff",fontSize:18,marginHorizontal:7}}>{route.params.Name}</Text>
       </TouchableOpacity>
-<AwesomeButtonRick style={styles.button}   textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF"  type="secondary"  onPress={()=>{navigation.navigate("My Employee")}} >
+<AwesomeButtonRick style={styles.button}   textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF"  type="secondary" 
+ onPress={()=>{navigation.navigate("My Employee",{'Name':route.params.Name,'empid':route.params.empid,'under':route.params.under})}} >
     MY Employee
     </AwesomeButtonRick>
        
 
    
       
-   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>{navigation.navigate("My-Attendance")}} >
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
+   onPress={()=>{navigation.navigate("My-Attendance")}} >
    My Attendance
     </AwesomeButtonRick>
        

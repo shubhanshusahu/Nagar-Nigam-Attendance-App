@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, FlatList,View,TouchableOpacity,TextInput, Picker,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import { useState ,useEffect} from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
@@ -13,15 +13,11 @@ export default function EmployeeSignUp() {
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
-  const [selectedValue, setSelectedValue] = useState("java");
-  let dataSource=[{
-    Name:"shivanshu",
-    Empid:"12334"
-  },
-{
-  Name:"danikrishu",
-  Empid:"88888"
-}]
+  const [selectedValue, setSelectedValue] = useState("shivanshu");
+  let i=0;
+  const route=useRoute();
+  let dataSource=route.params.dataSource;
+
   const clear=()=> 
   {
     setName("");
@@ -82,12 +78,6 @@ else{
 
 
   
-function Item({Name,Empid}){
-  return(<View>
-<Picker.Item label={Name} value={Empid} />
-</View>
-  );
-}
 const [image, setImage] = useState(null);
   
   useEffect(() => {
@@ -98,10 +88,9 @@ const [image, setImage] = useState(null);
           alert('Sorry, we need camera roll permissions to make this work!');
         }
       }
+     
     })();
-
-   
-  }, []);
+ }, []);
 
   const pickImage = async () => {
    
@@ -142,7 +131,7 @@ const [image, setImage] = useState(null);
   const submitdata=()=>{
 
     //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
-    fetch("http://484331d59aa3.ngrok.io/send-data",{
+    fetch("http://f56fade78cf7.ngrok.io/send-data",{
 
       method:"POST",
       headers:{
@@ -240,45 +229,20 @@ const [image, setImage] = useState(null);
   paddingHorizontal:5
 }}>
 
-      <Picker
-      selectedValue={selectedValue}
-     
-     style={{ color:'#3AB432', height: 35, width: 165 ,borderRadius:25}}
-  
-      onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-    > 
-      <Picker.Item label="Java" value="java" style={styles.txt}/>
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-      <Picker.Item label="Java" value="java" />
-      <Picker.Item label="JavaScript" value="js" />
-      <Picker.Item label="Python" value="jt" />
-     
 
-      {/* <FlatList
-data={dataSource}
-renderItem={({item})=>(
-<Item Empid={item.Empid} Name={item.Name} />
- 
-)}
-keyExtractor={(item)=>item.Barcode1}
-/> */}
-    </Picker>
+<Picker 
+               
+               style={{ color:'#3AB432', height: 35, width: 165 ,borderRadius:25}}
+  
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue) }>
+                
+                  {dataSource.map((item, index) => {
+                  return (<Picker.Item label={item.Name} value={item.empid} key={index}/>)   })}
+                </Picker> 
+
+
+    
     </View>
     </View>
     <View style={styles.bor}>

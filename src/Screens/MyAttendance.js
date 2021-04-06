@@ -2,10 +2,11 @@ import * as React from 'react';
 import { StyleSheet,FlatList, Text, View,TouchableOpacity,TextInput,Image,KeyboardAvoidingView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 export default function Myattendance(){
     const navigation = useNavigation();
+    const route=useRoute();
  let dataSource=[{
     Date:"12/03/2021",
     time:"12:00 PM",

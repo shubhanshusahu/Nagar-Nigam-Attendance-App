@@ -1,12 +1,47 @@
 import * as React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useState ,useEffect} from 'react';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 
 export default function MyEmployee() {
+  let dataSource=[];
   const navigation = useNavigation();
+  const route=useRoute();
+
+  useEffect(() => {
+  
+    (async () => {
+   
+
+  fetch("http://f56fade78cf7.ngrok.io/getEmps",{
+
+    method:"POST",
+    headers:{
+     
+      'Content-Type':'application/json'
+    },  
+      body:JSON.stringify({
+      
+      'EmployeeId': route.params.empid,
+     
+  })
+    
+  })
+  .then((data)=>data.json())
+  .then((data)=>{
+    dataSource.push({Name:route.params.Name,empid:route.params.empid})
+    for(var i in data) 
+    { dataSource.push({'Name':data[i].Name,'empid':data[i].empid})
+}
+    
+  })
+
+  })();
+  }, []);
+
+
   return (
     <View style={styles.container}>
     <LinearGradient
@@ -17,7 +52,7 @@ export default function MyEmployee() {
       />
 
    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
-   onPress={()=>{navigation.navigate("Add-New-Employee")}} >
+   onPress={()=>{navigation.navigate("Add-New-Employee",{'Name':route.params.Name,'empid':route.params.empid,'under':route.params.under,'dataSource':dataSource})}} >
       Add New Employee
     </AwesomeButtonRick>
       

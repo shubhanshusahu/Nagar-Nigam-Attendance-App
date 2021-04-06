@@ -97,7 +97,7 @@ export default function PublicComplain() {
   >
       Submit
     </AwesomeButtonRick>
-      {image && <Image source={{uri:("data:image/jpeg;base64,"+image)}}  style={{ width:333,height:333,marginBottom:5}} />}
+      {image && <Image source={{uri:("data:image/jpeg;base64,"+image)}}  resizeMode='contain' style={{ width:333,height:333,marginBottom:5}} />}
     </View>
     <AwesomeButtonRick  onPress={()=>{pickImage()}} style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2} backgroundColor="#fff" type="primary" >
       Upload image

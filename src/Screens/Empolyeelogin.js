@@ -12,8 +12,7 @@ export default function EmpolyeeLogin() {
 
     const logincheck=()=>{
 
-   
-      fetch("http://484331d59aa3.ngrok.io/login",{
+      fetch("http://f56fade78cf7.ngrok.io/login",{
   
         method:"POST",
         headers:{
@@ -33,7 +32,7 @@ export default function EmpolyeeLogin() {
         if( res.success === true)
         {
           
-          navigation.navigate("Home Page",{"Name":res.Name,'empid':res.empid,'under':res.Under,'barfromstock':null,'Pfp':res.Pfp})
+          navigation.navigate("Home Page",{'Name':res.Name,'empid':res.empid,'under':res.Under,'barfromstock':null,'Pfp':res.Pfp})
           
         }
         else{

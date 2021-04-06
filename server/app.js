@@ -4,7 +4,7 @@ const bodyParser= require ('body-parser')
 const mongoose=require('mongoose')
 
 
-
+let dataSource=[];
 // app.use(cors())
 app.use(bodyParser.json({
     limit:'50mb'
@@ -98,6 +98,25 @@ app.post('/send-data',(req,res)=> {
 
       }
 })
+})
+
+
+app.post('/getEmps',(req,res)=> {
+
+dataSource=[];
+    emp.find({'Under':req.body.EmployeeId})
+    .then((data)=>{
+        if(data){
+        
+        for(var i in data) 
+        { dataSource.push({'Name':data[i].Name,'empid':data[i].EmployeeId})
+  }
+        
+            res.send(dataSource)
+        }
+        console.log(dataSource)
+
+    })
 })
 
 
