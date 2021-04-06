@@ -31,7 +31,7 @@ export default function MyEmployee() {
   })
   .then((data)=>data.json())
   .then((data)=>{
-    dataSource.push({Name:route.params.Name,empid:route.params.empid})
+    dataSource.push({Name:route.params.Name+" (You)",empid:route.params.empid})
     for(var i in data) 
     { dataSource.push({'Name':data[i].Name,'empid':data[i].empid})
 }
@@ -66,7 +66,8 @@ export default function MyEmployee() {
       Marking Attendance
     </AwesomeButtonRick>
   
-   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>{navigation.navigate("Employee-Detail")}}  >
+   <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
+   onPress={()=>{navigation.navigate("Employee-Detail",{'Name':route.params.Name,'empid':route.params.empid,'under':route.params.under,'dataSource':dataSource})}}  >
       Employee-Details
     </AwesomeButtonRick>
      

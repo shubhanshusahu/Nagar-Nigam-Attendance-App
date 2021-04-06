@@ -37,7 +37,7 @@ export default function Myattendance(){
           <Image
         style={ {backgroundColor:'#2196F3',
          padding:5,
-         height:30,width:30,borderRadius:50}}
+         height:30,width:30,  borderRadius:50}}
         source={{
           uri: (imag)
         }}

@@ -125,11 +125,26 @@ dataSource=[];
         
             res.send(dataSource)
         }
-        console.log(dataSource)
+       
 
     })
 })
 
+
+app.post('/getOneEmp',(req,res)=> {
+
+    dataSource=[];
+        emp.findOne({'EmployeeId':req.body.EmployeeId})
+        .then((data)=>{
+            if(data){
+          
+                res.send(data)
+            }
+           
+    
+        })
+    })
+    
 
 app.post('/searchProduct',(req,res)=> {
 

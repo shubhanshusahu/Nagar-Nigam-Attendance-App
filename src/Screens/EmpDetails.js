@@ -1,33 +1,36 @@
 import * as React from 'react';
 import { StyleSheet,FlatList, Text, View,TouchableOpacity,TextInput,Image,KeyboardAvoidingView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useState ,useEffect} from 'react';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 export default function EmpDetails(){
     const navigation = useNavigation();
-dataSource=[{
-    empName:"Shbhanshus sahu",
-    empid:1,
-    age:22
+    const route=useRoute();
+    let dataSource=route.params.dataSource;
+// dataSource=[{
+//     empName:"Shbhanshus sahu",
+//     empid:1,
+//     age:22
 
-},
-{
-    empName:"Rishab",
-    empid:2,
-    age:21
-}]
-    function Item({empName,empid,age}){
+// },
+// {
+//     empName:"Rishab",
+//     empid:2,
+//     age:21
+// }]
+
+    function Item({Name,empid,}){
         return(<View style={styles.row2}>
 
 
 
-          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'empName':empName,'empid':empid,'age':age})}} style={styles.Listitems}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'Name':Name,'empid':empid})}} style={styles.Listitems}>
 
           
             <Text style={styles.txt}> {empid} </Text>
-            <Text style={styles.txt1}> {empName} </Text>
-            <Text style={styles.txt}> {age} </Text>
+            <Text style={styles.txt1}> {Name} </Text>
+           
             
            
           </TouchableOpacity>
@@ -51,12 +54,12 @@ dataSource=[{
         </View>
 
         <FlatList
-        data={dataSource}
+        data={route.params.dataSource}
         renderItem={({item})=>(
-        <Item empName={item.empName} empid={item.empid} age={item.age} />
+        <Item Name={item.Name} empid={item.empid}  />
         
         )}
-        keyExtractor={(item)=>item.empName}
+        keyExtractor={(item)=>item.empid}
         />
         </LinearGradient>     
     );

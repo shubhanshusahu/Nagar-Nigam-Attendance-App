@@ -144,6 +144,7 @@ const [image, setImage] = useState(null);
         body:JSON.stringify({
         'Name': name,  
         'Password': pass,
+        'Mobile':mno,
         'EmployeeId': empid,
         'Under':selectedValue,
         'Pfp':image
@@ -240,7 +241,7 @@ const [image, setImage] = useState(null);
                 selectedValue={selectedValue}
                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue) }>
                 
-                  {dataSource.map((item, index) => {
+                  {route.params.dataSource.map((item, index) => {
                   return (<Picker.Item label={item.Name} value={item.empid} key={index}/>)   })}
                 </Picker> 
 
