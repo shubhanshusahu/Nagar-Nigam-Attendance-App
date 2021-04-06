@@ -27,7 +27,7 @@ export default function Navigator(){
 
     return (
     <NavigationContainer>
-    <AppStack.Navigator screenOptions={{ headerShown: true ,}}  >
+    <AppStack.Navigator screenOptions={{ headerShown: true,}}  >
     <AppStack.Screen name="Nagar Nigam"  component={StartPage}  />
     <AppStack.Screen name="Empolyee Login" component={EmpolyeeLogin} />    
   <AppStack.Screen name="Public Login" component={PublicLogin} />  

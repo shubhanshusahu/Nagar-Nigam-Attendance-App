@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({
  app.use(express.urlencoded({limit:'50mb'}));
 let port = process.env.PORT || 3000
 require('./EmployeeSchema')
+require('./public')
 const emp= mongoose.model("emp")
+const User= mongoose.model("Public")
 const mongoUri="mongodb+srv://rishi:12345@cluster0.00f3y.mongodb.net/OnlineAttendance";
 mongoose.connect(mongoUri,{
     useNewUrlParser:true,
@@ -39,6 +41,15 @@ app.get('/',(req,res)=>{
     })
     
 })
+app.get('/public',(req,res)=>{
+    User.find({}).then(data=>{
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+    
+})
+
 app.post('/emp',(req,res)=>{
     const adminuser= new emp({
         Name:"shanshu sahu",
@@ -273,7 +284,7 @@ app.post('/sign-in',(req,res)=> {
   
 })
 
-app.get('/signup-data',(req,res)=> {
+app.post('/signup-data',(req,res)=> {
     User.findOne({'MobileNumber':req.body.MobileNumber})
     .then(data=>{
         
@@ -304,14 +315,15 @@ app.get('/signup-data',(req,res)=> {
 app.post('/forgotpassword',(req,res)=> {
     console.log(req.body)
    
-add.findOne({$and:[{'MobileNumber':req.body.MobileNumber},{'Dateofbirth':req.body.Dateofbirth} ] })
-.then(data=>{
+User.findOne({$and:[{'MobileNumber':req.body.MobileNumber},{'Dateofbirth':req.body.Dateofbirth} ] })
+.then((data)=>{
     console.log(data)
     if(data==null){
         res.send({'success':false}) 
     }
     else
-    {res.send({'success':true })
+    {
+        res.send({'success':true })
    
 }
 })
@@ -322,7 +334,7 @@ app.post('/passUpdate',(req,res)=>{
     const update={
         Password:req.body.Password, 
     };
-    add.findOneAndUpdate(filter,update)  
+    User.findOneAndUpdate(filter,update)  
 
     .then(data=>{
         console.log(data)

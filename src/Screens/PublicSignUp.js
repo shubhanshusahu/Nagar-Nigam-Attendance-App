@@ -69,7 +69,7 @@ const submit_data=()=> {
    
  
    
-  fetch("http://3be020024ec5.ngrok.io/signup-data", {
+  fetch("http://8a16f2f7d140.ngrok.io/signup-data", {
     method: "POST",
     headers:{
    
@@ -99,7 +99,7 @@ const submit_data=()=> {
       }  
     })
     .catch(err => {
-      Alert.alert('Err:', err.message);
+       alert('Err:', err.message);
     });
      
 }
@@ -115,13 +115,13 @@ const submit_data=()=> {
       
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
-      >
-        <Image style={{width:180,height:130,marginBottom:10}} source={require('../../assets/sign-up.png')}/>
+      > 
+        <Image style={{width:200,height:150,marginBottom:10,marginBottom:30}} source={require('../../assets/sign-up.png')}/>
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
          <TextInput
         placeholder="Name" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
         value={name}  
         onChangeText={text => setName(text)}
@@ -130,7 +130,7 @@ const submit_data=()=> {
       />
        <TextInput
         placeholder="Date-Of-Birth" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
         onChangeText={text => setDob(text)} 
         value={dob}
@@ -139,7 +139,7 @@ const submit_data=()=> {
       />
         <TextInput
         placeholder="Mobile Number" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         textAlign='left'
         value={mno}
         onChangeText={text => setMno(text)}
@@ -150,13 +150,13 @@ const submit_data=()=> {
         placeholder="Password" textAlign='left'
         value={pass}
         onChangeText={text => setPass(text)}
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
        style={styles.txt}
        
       />
      <TextInput
         placeholder="Re-Enter Password" 
-        placeholderTextColor='#3AB432'
+        placeholderTextColor='#00ABF0'
         onChangeText={text =>setrePass(text)}
         value={repass}
         textAlign='left'
@@ -170,7 +170,7 @@ const submit_data=()=> {
      
    
            
-    <AntDesign name="login" size={45}  color='#39E42D' />
+    <AntDesign name="login" size={45}  color='#00ABF0' />
 
 
 </TouchableOpacity>
@@ -178,7 +178,7 @@ const submit_data=()=> {
     
      
    
-  <Feather name="delete" size={45}  color='#39E42D'  />       
+  <Feather name="delete" size={45}  color='#00ABF0'  />       
    
 
 
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
        marginVertical:4,
        borderWidth:1,
        borderRadius:13,
-       borderColor:'#39E42D',
+       borderColor:'#00ABF0',
        paddingLeft:5,
        
      

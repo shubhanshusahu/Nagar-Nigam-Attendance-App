@@ -13,7 +13,7 @@ export default function EmpolyeeLogin() {
     const logincheck=()=>{
 
    
-      fetch("http://3be020024ec5.ngrok.io/login",{
+      fetch("http://8a16f2f7d140.ngrok.io/login",{
   
         method:"POST",
         headers:{
@@ -52,7 +52,7 @@ export default function EmpolyeeLogin() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.container}
       >
-        <View style={{borderRadius:25,borderColor:'#00ABF0',borderWidth:2,alignItems:'center',padding:7,marginBottom:6,paddingHorizontal:13}}>
+        <View style={{borderRadius:25,borderColor:'#00ABF0',borderWidth:2,alignItems:'center',padding:7,marginBottom:2,paddingHorizontal:13}}>
         <Image style={{width:220,height:270,
         }} source={require('../../assets/admin.png')}/>
         <View style={{flexDirection:'row' ,alignItems:'center'}}>
