@@ -69,7 +69,7 @@ const submit_data=()=> {
    
  
    
-  fetch("http://09f68b2466f6.ngrok.io/signup-data", {
+  fetch("http://7a51c00538ad.ngrok.io/signup-data", {
     method: "POST",
     headers:{
    

@@ -10,7 +10,7 @@ export default function PublicLogin() {
   const navigation = useNavigation();
   const login_data=()=> {
   
-      fetch("http://d9333d7863ae.ngrok.io/sign-in", {
+      fetch("http://7a51c00538ad.ngrok.io/sign-in", {
         method: "POST",
         headers:{
           'Accept': 'application/json',

@@ -19,7 +19,7 @@ const [flag, setflag] = useState(false)
   })();
   }, []);
 
-  fetch("http://d9333d7863ae.ngrok.io/getEmps",{
+  fetch("http://7a51c00538ad.ngrok.io/getEmps",{
 
     method:"POST",
     headers:{

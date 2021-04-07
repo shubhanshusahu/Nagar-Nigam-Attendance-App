@@ -40,7 +40,7 @@ useEffect(() => {
   //  dataSource=dataSource2;
   //  dataSource.splice(dataSource.findIndex(e => e.empid === empid),1);
   //   alert(JSON.stringify(dataSource))
-  fetch("http://d9333d7863ae.ngrok.io/getOneEmp",{
+  fetch("http://7a51c00538ad.ngrok.io/getOneEmp",{
 
     method:"POST",
     headers:{
@@ -97,7 +97,7 @@ const UpdateEmp=()=>{
 
   //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
 
-  fetch("http://d9333d7863ae.ngrok.io/UpdateEmp",{
+  fetch("http://7a51c00538ad.ngrok.io/UpdateEmp",{
 
 
 

@@ -4,15 +4,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import renderIf from 'render-if';
 export default function EmpolyeeLogin() {
     const navigation = useNavigation();
-
+    const [flag, setflag] = useState(false)
     const [empid,setEmpid] = useState("")
     const [password,setPass] = useState("")
 
     const logincheck=()=>{
-
-      fetch("http://d9333d7863ae.ngrok.io/login",{
+setflag(true)
+      fetch("http://7a51c00538ad.ngrok.io/login",{
 
   
         method:"POST",
@@ -32,13 +33,13 @@ export default function EmpolyeeLogin() {
         
         if( res.success === true)
         {
-          
+         
           navigation.navigate("Home Page",{'Name':res.Name,'empid':res.empid,'under':res.Under,'barfromstock':null,'Pfp':res.Pfp})
-          
+          setflag(false)
         }
         else{
           alert(res.message)
-      
+          setflag(false)
         } 
           
       })
@@ -49,7 +50,7 @@ export default function EmpolyeeLogin() {
       <LinearGradient
         // Background Linear Gradient
       
-        colors={['rgba(122, 51, 255,0.6)', 'transparent']}
+        colors={['rgba(122, 51, 255,0.3)', 'transparent']}
         style={styles.container}
       >
         <View style={{borderRadius:25,borderColor:'#00ABF0',borderWidth:2,alignItems:'center',padding:7,marginBottom:2,paddingHorizontal:13}}>
@@ -71,6 +72,14 @@ export default function EmpolyeeLogin() {
        secureTextEntry={true}
       />
       </View>
+
+
+      {renderIf(flag)(
+        <>
+        <Image style={{height:50, width:50, borderRadius:10}} source={require('../../assets/loading23.gif')}/>
+        </>
+      )}
+      {renderIf(!flag)(<>
        <TouchableOpacity  onPress={()=>{logincheck()}}>
     
      
@@ -80,6 +89,8 @@ export default function EmpolyeeLogin() {
        
      
       </TouchableOpacity>
+      </>
+)}
       </View>
       </View>
       <Image style={{width:"100%",height:170}} source={require('../../assets/city.png')}/>
