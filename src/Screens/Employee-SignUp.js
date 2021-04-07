@@ -118,7 +118,7 @@ const [image, setImage] = useState(null);
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       // allowsEditing: true,
       // aspect: [8,16],
-      
+        
       quality: 0.2,
       base64 :true
     });
@@ -132,7 +132,7 @@ const [image, setImage] = useState(null);
 
     //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
 
-    fetch("http://09f68b2466f6.ngrok.io/send-data",{
+    fetch("http://8f473b505af7.ngrok.io/send-data",{
 
  
 
