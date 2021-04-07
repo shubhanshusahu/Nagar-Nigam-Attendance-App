@@ -1,21 +1,25 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState ,useEffect} from 'react';
 import { useNavigation ,useRoute} from '@react-navigation/native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
-
+import renderIf from 'render-if';
 export default function MyEmployee() {
   let dataSource=[];
   const navigation = useNavigation();
   const route=useRoute();
-
+const [flag, setflag] = useState(false)
   useEffect(() => {
   
     (async () => {
    
 
-  fetch("http://09f68b2466f6.ngrok.io/getEmps",{
+// 
+  })();
+  }, []);
+
+  fetch("http://d9333d7863ae.ngrok.io/getEmps",{
 
     method:"POST",
     headers:{
@@ -35,12 +39,8 @@ export default function MyEmployee() {
     for(var i in data) 
     { dataSource.push({'Name':data[i].Name,'empid':data[i].empid})
 }
-    
+setflag(true);
   })
-
-  })();
-  }, []);
-
 
   return (
     <View style={styles.container}>
@@ -50,7 +50,12 @@ export default function MyEmployee() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.background}
       />
-
+      {renderIf(!flag)(
+        <>
+        <Image style={{height:100, width:110}} source={require('../../assets/loading.gif')}/>
+        </>
+      )}
+{renderIf(flag)(<>
    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
    onPress={()=>{navigation.navigate("Add-New-Employee",{'Name':route.params.Name,'empid':route.params.empid,'under':route.params.under,'dataSource':dataSource})}} >
       Add New Employee
@@ -74,7 +79,8 @@ export default function MyEmployee() {
     <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary"  >
       Add Work Location
     </AwesomeButtonRick>
-      
+    </>
+)}
     </View>
   );
 }

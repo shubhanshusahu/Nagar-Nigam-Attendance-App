@@ -132,7 +132,7 @@ const [image, setImage] = useState(null);
 
     //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
 
-    fetch("http://09f68b2466f6.ngrok.io/send-data",{
+    fetch("http://d9333d7863ae.ngrok.io/send-data",{
 
  
 

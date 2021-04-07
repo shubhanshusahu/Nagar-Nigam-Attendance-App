@@ -25,7 +25,7 @@ export default function EmpDetails(){
 
 
 
-          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'Name':Name,'empid':empid})}} style={styles.Listitems}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Update Employee Detail",{'Name':Name,'empid':empid,'dataSource':route.params.dataSource})}} style={styles.Listitems}>
 
           
             <Text style={styles.txt}> {empid} </Text>

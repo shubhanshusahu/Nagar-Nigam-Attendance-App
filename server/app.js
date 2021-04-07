@@ -34,7 +34,10 @@ mongoose.connection.on("connected",()=> {
 })
 
 app.get('/',(req,res)=>{
-    emp.find({}).then(data=>{
+    emp.find({}, {
+       Pfp: 0 
+      })
+    .then(data=>{
         res.send(data)
     }).catch(err=>{
         console.log(err)
@@ -245,28 +248,30 @@ AddProduct.find({'ProductName':{$regex:req.body.ProductName,$options:"i"},})
     })
 
 })
-app.post('/UpdateProduct',(req,res)=> {
-    console.log(req.body)
-    const filter={Barcode:req.body.Barcode};
+app.post('/UpdateEmp',(req,res)=> {
+   
+    const filter={EmployeeId:req.body.EmployeeId};
 const update={
-    Barcode:req.body.Barcode,
-        ProductName:req.body.ProductName,
-        Quantity:req.body.Quantity,
-        ReorderQuantity:req.body.ReorderQuantity,
-        Price:req.body.Price
+    Name:req.body.Name,
+        Password:req.body.Password,
+        EmployeeId:req.body.EmployeeId,
+        Mobile:req.body.Mobile,
+        Under:req.body.Under,
+        Pfp:req.body.Pfp
+
 };
-AddProduct.findOne({'Barcode':req.body.Barcode})
+emp.findOne({'Employee':req.body.Employee})
 .then(data=>{
-    console.log(data)
+ 
     if(!data){
         res.send({'success':false})
     }
     else
     {res.send({'success':true})
-    AddProduct.findOneAndUpdate(filter,update)  
+    emp.findOneAndUpdate(filter,update)  
 
     .then(data=>{
-        console.log(data)
+     
         
     }).catch(err=>{
         console.log(err)

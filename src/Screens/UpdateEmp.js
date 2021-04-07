@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image,Picker, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation ,useRoute} from '@react-navigation/native';
 import { useState,useEffect } from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign , MaterialCommunityIcons} from '@expo/vector-icons';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import * as ImagePicker from 'expo-image-picker';
 export default function UpdateEmp() {
@@ -15,22 +15,32 @@ export default function UpdateEmp() {
   const [mno, setMno] = useState("")
   const [pass, setPass] = useState("")
   const [repass, setrePass] = useState("")
+  const [selectedValue, setSelectedValue] = useState("shivanshu");
+  let dataSource=route.params.dataSource;
+  let dataSource2=route.params.dataSource;
   const clear=()=> 
   {
     setName("");
 
-    setMno("");
+-    setMno("");
     setPass("");
     setrePass("");
 
   }
-  
+  function removeElement(array, elem) {
+    var index = array.indexOf(elem);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+}
 useEffect(() => {
   
   (async () => {
-
-    
-  fetch("http://09f68b2466f6.ngrok.io/getOneEmp",{
+  //  removeElement(dataSource, route.params.Name,route.params.empid);
+  //  dataSource=dataSource2;
+  //  dataSource.splice(dataSource.findIndex(e => e.empid === empid),1);
+  //   alert(JSON.stringify(dataSource))
+  fetch("http://d9333d7863ae.ngrok.io/getOneEmp",{
 
     method:"POST",
     headers:{
@@ -50,8 +60,9 @@ useEffect(() => {
    setMno(data.Mobile)
    setPass(data.Password)
    setrePass(data.Password)
+   setSelectedValue(data.Under)
   })
-
+  alert(JSON.stringify(dataSource))
   })();
   (async () => {
     if (Platform.OS !== 'web') {
@@ -61,7 +72,8 @@ useEffect(() => {
       }
     }
   })();
-
+  // dataSource2.remove(array, function() { return {name,empid};});
+   
 }, []);
 
 
@@ -71,7 +83,7 @@ const openCam = async () => {
     // allowsEditing: true,
     // aspect: [8,16],
    
-    quality: 1,
+    quality: 0.2,
      base64 :true
   });
   if (!result1.cancelled) {
@@ -81,6 +93,42 @@ const openCam = async () => {
       }
      
 }
+const UpdateEmp=()=>{
+
+  //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
+
+  fetch("http://d9333d7863ae.ngrok.io/UpdateEmp",{
+
+
+
+    method:"POST",
+    headers:{
+     
+      'Content-Type':'application/json'
+    },  
+      body:JSON.stringify({
+     
+      'EmployeeId': empid,
+      'Name': name,  
+      'Password': pass,
+      'Mobile':mno,
+      'Under':selectedValue,
+      'Pfp':imag
+      
+  })
+    
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.success==true)
+      alert("Employee "+name+" is Updated!");
+    else
+      alert("Employee "+name+" not found!");
+   
+  
+  })    
+}
+
   const validate=()=>{
     var r=mno;
     //var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
@@ -95,12 +143,16 @@ const openCam = async () => {
         if((!pass=="") &&(pass.length>3)){
           if( (!repass=="")) {
           if((pass==repass) && (!repass=="")) {
-            alert(name + " Account created sucessfully")
-           navigation.navigate("My Employee")
-            
+            if(selectedValue==empid)
+            {
+              alert("Change supervisor!")
+            }
+else{   
+           UpdateEmp();
+}
        }
        else{
-
+        
         alert(" password doesn't match with re-enter password ")
          setrePass("");
        }
@@ -139,15 +191,16 @@ else{
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
-      <TouchableOpacity onPress={()=>{openCam()}}>
-      <Image
-        style={ {backgroundColor:'#2196F3',
+      <TouchableOpacity style={{borderRadius:30}} onPress={()=>{openCam()}}>
+      <ImageBackground
+        style={ {
          padding:5,
-         height:300,width:300,borderRadius:20,marginLeft:1}}
+         height:300,width:300,alignItems:'center',justifyContent:'flex-end'}}
+         resizeMode="contain"
         source={{
           uri:("data:image/jpeg;base64,"+imag)
         }}
-      />
+      ><MaterialCommunityIcons name="image-edit-outline" size={30} color="#39E42D" /></ImageBackground>
       </TouchableOpacity>
            <View style={{flexDirection:'row' ,alignItems:'center'}}>
          <View style={{flexDirection:'column',marginRight:10}}>
@@ -204,6 +257,34 @@ else{
         style={styles.txt}
        
       />
+        <Text style={{fontSize:18,color:'#3AB432'}}>Under Whom?</Text>
+      <View style={{
+ alignSelf:"center",
+  borderWidth: 2,
+  borderColor:'#3AB432',
+  borderRadius: 20,
+  marginVertical:5,
+  flexDirection:'row',
+  alignItems:'center',
+  paddingHorizontal:5
+}}>
+
+
+<Picker 
+               
+               style={{ color:'#fff', height: 35, width: 165 ,borderRadius:25}}
+  
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue) }>
+                
+                  {dataSource.map((item, index) => {
+                  return (<Picker.Item label={item.Name} value={item.empid} key={index}/>)   })}
+                </Picker> 
+
+
+    
+    </View>
+    
       </View>
       <TouchableOpacity  onPress={()=>{validate()}}>
     
@@ -218,7 +299,7 @@ else{
       </View>
       <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
     onPress={()=>{navigation.navigate("Checking Attendance")}} >
-      <Text style={{fontSize:15,color:'#FFF'}}>Check {route.params.empName}'s Attendance</Text>
+      <Text style={{fontSize:15,color:'#FFF'}}>Check {name}'s Attendance</Text>
     </AwesomeButtonRick>
       <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
     onPress={()=>{navigation.navigate("Mark Attendance",{'empid':route.params.empid,'empName':route.params.empName})}} >
