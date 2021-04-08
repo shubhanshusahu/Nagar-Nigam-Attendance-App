@@ -18,7 +18,7 @@ let longitude=location.coords.longitude;
   const [currentDate, setCurrentDate] = useState('');
   const [flag2,setFlag2]=useState(false);
   const submit=()=>{
-    fetch("http://8f473b505af7.ngrok.io/markattendance", {
+    fetch("http://0e1d7d074030.ngrok.io/markattendance", {
       method: "POST",
       headers:{
      

@@ -24,7 +24,7 @@ export default function Forget() {
  const login_data=()=> {
   
    
-  fetch("http://09f68b2466f6.ngrok.io/forgotpassword", {
+  fetch("http://0e1d7d074030.ngrok.io/forgotpassword", {
     method: "POST",
     headers:{
    
@@ -58,7 +58,7 @@ export default function Forget() {
    
 
  
-      fetch("http://09f68b2466f6.ngrok.io/passUpdate", {
+      fetch("http://0e1d7d074030.ngrok.io/passUpdate", {
         method: "POST",
         headers:{
        

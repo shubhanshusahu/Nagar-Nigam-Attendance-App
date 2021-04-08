@@ -13,7 +13,7 @@ export default function EmpolyeeLogin() {
 
     const logincheck=()=>{
 setflag(true)
-      fetch("http://7a51c00538ad.ngrok.io/login",{
+      fetch("http://0e1d7d074030.ngrok.io/login",{
 
   
         method:"POST",

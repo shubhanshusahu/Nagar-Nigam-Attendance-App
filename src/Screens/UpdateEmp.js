@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,Image,Picker, ImageBackground} from 'react-native';
+import { StyleSheet, ScrollView   ,Text, View,TouchableOpacity,TextInput,Image,Picker, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation ,useRoute} from '@react-navigation/native';
 import { useState,useEffect } from 'react';
@@ -40,7 +40,7 @@ useEffect(() => {
   //  dataSource=dataSource2;
   //  dataSource.splice(dataSource.findIndex(e => e.empid === empid),1);
   //   alert(JSON.stringify(dataSource))
-  fetch("http://7a51c00538ad.ngrok.io/getOneEmp",{
+  fetch("http://0e1d7d074030.ngrok.io/getOneEmp",{
 
     method:"POST",
     headers:{
@@ -62,7 +62,7 @@ useEffect(() => {
    setrePass(data.Password)
    setSelectedValue(data.Under)
   })
-  alert(JSON.stringify(dataSource))
+
   })();
   (async () => {
     if (Platform.OS !== 'web') {
@@ -97,7 +97,7 @@ const UpdateEmp=()=>{
 
   //alert("name is "+name+ ",password is "+password+" Employee id is "+empid+" role is "+role)
 
-  fetch("http://7a51c00538ad.ngrok.io/UpdateEmp",{
+  fetch("http://0e1d7d074030.ngrok.io/UpdateEmp",{
 
 
 
@@ -119,8 +119,8 @@ const UpdateEmp=()=>{
     
   })
   .then(res=>res.json())
-  .then(data=>{
-    if(data.success==true)
+  .then(res=>{
+    if(res.success==true)
       alert("Employee "+name+" is Updated!");
     else
       alert("Employee "+name+" not found!");
@@ -191,6 +191,7 @@ else{
         colors={['rgba(122, 51, 255,0.4)', 'transparent']}
         style={styles.container}
       >
+        <ScrollView>
       <TouchableOpacity style={{borderRadius:30}} onPress={()=>{openCam()}}>
       <ImageBackground
         style={ {
@@ -298,7 +299,7 @@ else{
 
       </View>
       <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
-    onPress={()=>{navigation.navigate("Checking Attendance")}} >
+    onPress={()=>{navigation.navigate("My-Attendance",{'empid':empid})}} >
       <Text style={{fontSize:15,color:'#FFF'}}>Check {name}'s Attendance</Text>
     </AwesomeButtonRick>
       <AwesomeButtonRick  style={styles.button} textColor="#fff" height={40} width={290} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="primary" 
@@ -309,6 +310,7 @@ else{
     onPress={()=>{navigation.navigate("Work Locations")}} >
       <Text style={{fontSize:15,color:'#FFF'}}>Add/Edit Work Locations</Text>
     </AwesomeButtonRick>
+    </ScrollView>
    </LinearGradient>
   );
 }

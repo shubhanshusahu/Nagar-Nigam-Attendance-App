@@ -12,7 +12,7 @@ export default function Myattendance(){
     const [flag, setFlag] = useState(false)
     var empid=route.params.empid;
 
- fetch("http://8f473b505af7.ngrok.io/viewattendance", {
+ fetch("http://0e1d7d074030.ngrok.io/viewattendance", {
   method: "POST",
   headers:{
  
@@ -26,7 +26,7 @@ export default function Myattendance(){
   
 
 }).then(data=>data.json())
-.then((data)=>{
+.then(data=>{
 dataSource=data;
 
 setFlag(true);
