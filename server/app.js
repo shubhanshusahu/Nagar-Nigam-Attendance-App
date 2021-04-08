@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded({
 let port = process.env.PORT || 3000
 require('./EmployeeSchema')
 require('./public')
+require('./attendance')
+const attendance=mongoose.model("attendance")
 const emp= mongoose.model("emp")
 const User= mongoose.model("Public")
 const mongoUri="mongodb+srv://rishi:12345@cluster0.00f3y.mongodb.net/OnlineAttendance";
@@ -400,6 +402,41 @@ app.post('/update',(req,res)=> {
     .catch(err=>{
         console.log(err)
     })
+    })
+
+
+app.post('/markattendance',(req,res)=> {
+
+    const Attendance= new attendance({
+        Name:req.body.Name,
+        EmployeeId:req.body.EmployeeId,
+        Photo:req.body.Photo,
+        Latitude:req.body.Latitude,
+        Longitude:req.body.Longitude,
+        Date:req.body.Date,
+
+    })
+    Attendance.save()
+    .then((data)=>{   
+        res.send('posted')
+    }).catch(err=>{
+        console.log(err)
+    })
+
+      
+    })
+    app.post('/viewattendance',(req,res)=> {
+        console.log(req.body)
+       
+        attendance.find({'EmployeeId':req.body.EmployeeId})
+    .then((data)=>{
+       res.send(data)
+      
+    }) 
+    .catch(err=>{
+        console.log(err)
+    })
+        
     })
     
 app.listen(port,()=>{

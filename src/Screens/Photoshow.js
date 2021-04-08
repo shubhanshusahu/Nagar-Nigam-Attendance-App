@@ -4,36 +4,50 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { useState,useEffect } from 'react';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
-
+import renderIf from 'render-if';
 export default function PhotoShow() {
  
   const navigation = useNavigation();
 const route= useRoute();
-
-  const [image, setImage] = useState(route.params.photo);
-  
-  const submit=()=>{
-    alert("Attendance Mark Sucessfully");
-    navigation.navigate("My-Attendance");
-  }
+let Name=route.params.Name;
+let empid=route.params.empid
+let location=route.params.location;
+let latitude=location.coords.latitude;
+let longitude=location.coords.longitude;
+  const [image, setImage] = useState('data:image/jpg;base64,'+route.params.photobase64);
   const [currentDate, setCurrentDate] = useState('');
+  const [flag2,setFlag2]=useState(false);
+  const submit=()=>{
+    fetch("http://8f473b505af7.ngrok.io/markattendance", {
+      method: "POST",
+      headers:{
+     
+        'Content-Type': 'application/json'
+      },
+  
+      body:JSON.stringify({
+        'Name':Name,
+        'EmployeeId':empid,
+        'Photo':image,
+        'Latitude':latitude,
+        'Longitude':longitude,
+        'Date':currentDate,
+      })
+  
+    })
+      .then((res) => res.json())
+      .then(res => {
+        alert("mark attendnce sucessfully")
+        navigation.navigate("My-Attendance")
 
-  useEffect(() => {
+      })
+      .catch(err => {
+        alert("mark attendance sucessfully")
+        navigation.navigate("Home Page",{'empid':route.params.empid})
+      });
+       
     
-
-  // const now = new Date(),
-  //    date = now.getDate(); //Current Date
-  //    month = now.getMonth() + 1; //Current Month
-  //    year = now.getFullYear(); //Current Year
-  //    hours = now.getHours(); //Current Hours
-  //    min = now.getMinutes(); //Current Minutes
-  //    sec = now.getSeconds(); //Current Seconds
-    // setCurrentDate(
-    //   date + '/' + month + '/' + year 
-    //   + ' ' + hours + ':' + min + ':' + sec
-    // );
-
-    (async () => {
+  }
   fetch("http://worldtimeapi.org/api/ip",{
   
     method:"GET",
@@ -57,9 +71,18 @@ const route= useRoute();
       day + '-' + month + '-' + year 
       + ' ' + hours + ':' + min + ':' + sec
     );
+    setFlag2(true)
   })
-})();
-  }, []);
+
+//   useEffect(() => {
+    
+
+  
+
+//     (async () => {
+ 
+// })();
+  //}, []);
   return (
     
       
@@ -85,10 +108,11 @@ const route= useRoute();
 
 
      
-      {image && <Image source={{ uri: image }} style={{ flex:1,width:350}} />}
+      {image && <Image source={{ uri: image}} resizeMode='contain' style={{ flex:1,width:333,height:333}} />}
   
 
 <View flexDirection='row'>
+
 
       <AwesomeButtonRick  style={styles.button} width={150} borderColor="#3DFDF4" borderWidth={2}  backgroundColor="#fff" type="primary"  onPress={()=>{navigation.navigate("Mark Attendance")}} >
      Retake photo
@@ -97,6 +121,7 @@ const route= useRoute();
      mark attendance
     </AwesomeButtonRick>
     
+
     </View>
    </LinearGradient>
   );
@@ -120,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     borderRadius: 5,
-    margin:5,
+    margin:15,
     
   },
   text: {
