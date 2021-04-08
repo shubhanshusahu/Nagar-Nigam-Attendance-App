@@ -15,7 +15,7 @@ export default function App() {
   const [capturedImage, setCapturedImage] = useState(true)
   const [flashMode, setFlashMode] = useState('off')
   const [location, setLocation] = React.useState(null)
- 
+  let photo;
   const navigation = useNavigation();
   // const [location, setLocation] = useState({coords:{latitude: 53.1651488,
   //   longitude: 34.9455526,
@@ -26,6 +26,7 @@ export default function App() {
   //   console.log(faces)
     
   // }
+ 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
@@ -90,18 +91,20 @@ setLocation(await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.H
 
  const snap = async () => {
     if (camera) {
-      let photo = await camera.takePictureAsync({
-       quality: 0,
+       photo = await camera.takePictureAsync({
+       quality: 0.2,
         base64 :true
        
       });
-      
+    
       alert(JSON.stringify(location));
-      alert("Marking attendance of "+route.params.empName)
+      //alert("Marking attendance of "+route.params.empName)
       getLocation();
-     if((location!=null) && ( await Location.hasServicesEnabledAsync()))   
-      navigation.navigate("Show Photo",{'photo':photo.uri});
-      else
+     if((location!=null) && ( await Location.hasServicesEnabledAsync())) {
+      
+        navigation.navigate("Show Photo",{'photobase64':photo.base64,'Name':route.params.Name,'empid':route.params.empid,'location':location});
+      }
+     else
       {
        
 
