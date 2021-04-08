@@ -10,16 +10,16 @@ export default function MyEmployee() {
   const navigation = useNavigation();
   const route=useRoute();
 const [flag, setflag] = useState(false)
-  useEffect(() => {
+//   useEffect(() => {
   
-    (async () => {
+//     (async () => {
    
 
-// 
-  })();
-  }, []);
+// // 
+//   })();
+//   }, []);
 
-  fetch("http://7a51c00538ad.ngrok.io/getEmps",{
+  fetch("http://0e1d7d074030.ngrok.io/getEmps",{
 
     method:"POST",
     headers:{

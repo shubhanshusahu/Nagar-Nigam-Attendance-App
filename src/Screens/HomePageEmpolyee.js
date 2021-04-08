@@ -17,13 +17,13 @@ export default function EmpolyeeHome() {
       let { status } = await Location.requestPermissionsAsync();
    if (status !== 'granted') {
         
-          setErrorMsg('Permission to access location was denied',{'empid':"self",'empName':"self"});
+          setErrorMsg('Permission to access location was denied');
           
           return;
         }
   if(Location.hasServicesEnabledAsync({}))
      {
-      navigation.navigate("Mark Attendance",{'empName':"self"});    
+      navigation.navigate("Mark Attendance",{'empName':"self",'Name':route.params.Name,'empid':route.params.empid});    
     }
   else
   {
@@ -40,9 +40,9 @@ export default function EmpolyeeHome() {
         colors={['rgba(122, 51, 255,0.6)', 'transparent']}
         style={styles.background}
       />
-      <View style={{height:"20%", width:"90%",flexDirection:'column',alignItems:"flex-end"}} > 
+      <View style={{height:"20%", width:"100%",flexDirection:'column',alignItems:"flex-end"}} > 
       
-      <AwesomeButtonRick style={styles.button1}  textColor="#fff" width={100} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>navigation.navigate("Empolyee Login")}  >
+      <AwesomeButtonRick style={styles.button1}  textColor="#fff" width={72.5} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" onPress={()=>navigation.navigate("Empolyee Login")}  >
    Logout
     </AwesomeButtonRick>
       </View>
@@ -67,7 +67,7 @@ export default function EmpolyeeHome() {
    
       
    <AwesomeButtonRick  style={styles.button} textColor="#fff" width={200} borderColor="#FFF" borderWidth={2}  backgroundColor="#7A33FF" type="secondary" 
-   onPress={()=>{navigation.navigate("My-Attendance")}} >
+   onPress={()=>{navigation.navigate("My-Attendance",{'empid':route.params.empid})}} >
    My Attendance
     </AwesomeButtonRick>
        
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
   },
   button1: {
     
-    marginTop:35,
-   
+    marginTop:7,
+   marginRight:10,
     
     
   },

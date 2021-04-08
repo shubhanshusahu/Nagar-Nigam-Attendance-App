@@ -78,7 +78,7 @@ const route=useRoute();
 <Image
         style={{width:30,borderRadius:50,height:30}}
         source={{
-          uri:route.params.imag
+          uri:route.params.image
         }}
       />
          </Marker>
@@ -87,7 +87,7 @@ const route=useRoute();
    <Image
         style={{flex:0.5}}
         source={{
-          uri:route.params.imag
+          uri:route.params.image
         }}
       />
       </>
